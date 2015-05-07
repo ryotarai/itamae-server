@@ -14,31 +14,33 @@
 ActiveRecord::Schema.define(version: 20150507052629) do
 
   create_table "logs", force: :cascade do |t|
-    t.string   "host"
-    t.integer  "status",     default: 0
-    t.string   "file_path"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "plan_id"
+    t.string   "host",       limit: 255
+    t.integer  "status",     limit: 4,   default: 0
+    t.string   "file_path",  limit: 255
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "plan_id",    limit: 4
   end
 
-  add_index "logs", ["plan_id"], name: "index_logs_on_plan_id"
+  add_index "logs", ["plan_id"], name: "index_logs_on_plan_id", using: :btree
 
   create_table "plans", force: :cascade do |t|
-    t.integer  "revision_id"
-    t.integer  "status",      default: 0
-    t.boolean  "is_dry_run"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.integer  "revision_id", limit: 4
+    t.integer  "status",      limit: 4, default: 0
+    t.boolean  "is_dry_run",  limit: 1
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
-  add_index "plans", ["revision_id"], name: "index_plans_on_revision_id"
+  add_index "plans", ["revision_id"], name: "index_plans_on_revision_id", using: :btree
 
   create_table "revisions", force: :cascade do |t|
-    t.string   "name"
-    t.string   "tar_url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       limit: 255
+    t.string   "tar_url",    limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
+  add_foreign_key "logs", "plans"
+  add_foreign_key "plans", "revisions"
 end
