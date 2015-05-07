@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   resources :logs do
     member do
-      patch 'update'
-      put   'update'
+      patch 'append'
+      put   'append'
     end
   end
   resources :plans

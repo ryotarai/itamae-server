@@ -1,4 +1,5 @@
 class LogsController < ApplicationController
+  protect_from_forgery except: :append
   before_action :set_log, only: [:show, :edit, :update, :destroy, :append]
 
   # GET /logs
