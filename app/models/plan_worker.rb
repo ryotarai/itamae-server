@@ -6,6 +6,7 @@ class PlanWorker
 
     unless plan.pending?
       puts "#{plan} is not pending"
+      return
     end
 
     plan.status = :in_progress
