@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150507032011) do
+ActiveRecord::Schema.define(version: 20150507032144) do
 
   create_table "logs", force: :cascade do |t|
     t.string   "host"
@@ -19,7 +19,10 @@ ActiveRecord::Schema.define(version: 20150507032011) do
     t.string   "file_path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "plan_id"
   end
+
+  add_index "logs", ["plan_id"], name: "index_logs_on_plan_id"
 
   create_table "plans", force: :cascade do |t|
     t.integer  "revision_id"
