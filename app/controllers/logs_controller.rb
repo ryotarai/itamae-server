@@ -1,5 +1,5 @@
 class LogsController < ApplicationController
-  before_action :set_log, only: [:show, :edit, :update, :destroy]
+  before_action :set_log, only: [:show, :edit, :update, :destroy, :append]
 
   # GET /logs
   # GET /logs.json
@@ -48,6 +48,17 @@ class LogsController < ApplicationController
         format.html { render :edit }
         format.json { render json: @log.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # PATCH/PUT /logs/1/append
+  # PATCH/PUT /logs/1/append.json
+  def append
+    @log.append(request.body.string)
+
+    respond_to do |format|
+      format.html { redirect_to @log, notice: 'Log was successfully updated.' }
+      format.json { render :show, status: :ok, location: @log }
     end
   end
 

@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :logs
+  resources :logs do
+    member do
+      patch 'update'
+      put   'update'
+    end
+  end
   resources :plans
   resources :revisions
   post 'hooks/github' => 'hooks#github'
