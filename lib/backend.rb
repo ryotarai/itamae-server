@@ -7,6 +7,8 @@ module Backend
     type = ENV['BACKEND_TYPE']
 
     klass = case type
+            when nil
+              raise "please set backend type by ENV['BACKEND_TYPE']"
             when 'consul'
               Consul
             else
