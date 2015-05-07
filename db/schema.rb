@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150507032144) do
+ActiveRecord::Schema.define(version: 20150507052629) do
 
   create_table "logs", force: :cascade do |t|
     t.string   "host"
-    t.integer  "status"
+    t.integer  "status",     default: 0
     t.string   "file_path"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.integer  "plan_id"
   end
 
@@ -26,10 +26,10 @@ ActiveRecord::Schema.define(version: 20150507032144) do
 
   create_table "plans", force: :cascade do |t|
     t.integer  "revision_id"
-    t.integer  "status"
+    t.integer  "status",      default: 0
     t.boolean  "is_dry_run"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   add_index "plans", ["revision_id"], name: "index_plans_on_revision_id"
