@@ -1,3 +1,5 @@
+require 'backend'
+
 class PlanWorker
   include Sidekiq::Worker
 
@@ -9,12 +11,19 @@ class PlanWorker
       return
     end
 
-    plan.status = :in_progress
+    plan.in_progress!
     plan.save!
 
     Backend.current.hosts.each do |host|
-      plan.logs.create(host: host)
+      plan.logs.create(host: host, status: :in_progress)
     end
+
+    plan.completed!
+    plan.save!
+  rescue => err
+    Rails.logger.error "aborted: #{err.inspect}\n(backtrace)\n#{err.backtrace.join("\n")}"
+    plan.aborted!
+    plan.save!
   end
 end
 
