@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  post 'hooks/github' => 'hooks#github'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
