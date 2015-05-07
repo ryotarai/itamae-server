@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :revisions
   post 'hooks/github' => 'hooks#github'
 
   # The priority is based upon order of creation: first created -> highest priority.
