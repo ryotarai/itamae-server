@@ -1,3 +1,4 @@
+require 'backend/base'
 require 'backend/consul'
 
 module Backend

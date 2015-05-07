@@ -1,5 +1,7 @@
+require 'backend/base'
+
 module Backend
-  class Consul
+  class Consul < Base
     def initialize
       configure
     end

@@ -18,6 +18,7 @@ class PlanWorker
       plan.logs.create(host: host, status: :in_progress)
     end
 
+    Backend.current.kick(plan)
   rescue => err
     Rails.logger.error "aborted: #{err.inspect}\n(backtrace)\n#{err.backtrace.join("\n")}"
     plan.aborted!
