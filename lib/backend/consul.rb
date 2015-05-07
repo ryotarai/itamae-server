@@ -7,18 +7,39 @@ module Backend
     end
 
     def hosts
-      Diplomat::Service.new.get(service_name, :all).map(&:Node)
+      api(:get, "/v1/catalog/service/#{service_name}").map do |h|
+        h.fetch('Node')
+      end
+    end
+
+    def kick(plan)
+      api(:put, "/v1/event/fire/#{event_name}")
     end
 
     private
+
+    def api(method, endpoint)
+      res = @conn.public_send(method, endpoint)
+      unless 200 <= res.status && res.status < 300
+        raise "error: #{res}"
+      end
+
+      JSON.parse(res.body)
+    end
 
     def service_name
       ENV.fetch('CONSUL_SERVICE')
     end
 
+    def event_name
+      ENV['CONSUL_EVENT'] || 'itamae'
+    end
+
     def configure
-      Diplomat.configure do |config|
-        config.url = ENV['CONSUL_HOST'] if ENV['CONSUL_HOST'] # e.g. "http://localhost:8500"
+      consul_url = ENV['CONSUL_URL'] || "http://localhost:8500"
+      @conn = Faraday.new(url: consul_url) do |faraday|
+        faraday.request :url_encoded
+        faraday.adapter Faraday.default_adapter
       end
     end
   end
