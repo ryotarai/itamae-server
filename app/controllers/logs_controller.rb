@@ -81,6 +81,6 @@ class LogsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def log_params
-      params.require(:log).permit(:host, :status, :file_path)
+      params.require(:log).permit(:host)
     end
 end
