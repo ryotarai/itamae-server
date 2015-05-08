@@ -13,13 +13,17 @@ module Backend
     end
 
     def kick(plan)
-      api(:put, "/v1/event/fire/#{event_name}")
+      api(:put, "/v1/event/fire/#{event_name}", plan.id.to_s)
     end
 
     private
 
-    def api(method, endpoint)
-      res = @conn.public_send(method, endpoint)
+    def api(method, endpoint, body = nil)
+      res = @conn.public_send(method) do |req|
+        req.url(endpoint)
+        req.body = body if body
+      end
+
       unless 200 <= res.status && res.status < 300
         raise "error: #{res}"
       end
