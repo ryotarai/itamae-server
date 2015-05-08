@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+require 'json'
+require 'base64'
+
+events = JSON.parse($stdin.read)
+event  = events.last
+unless event
+  puts "no event"
+  exit
+end
+
+raw_payload = event.fetch('Payload')
+unless raw_payload
+  puts "no payload"
+  exit
+end
+
+payload = Base64.decode64(raw_payload)
+payload
