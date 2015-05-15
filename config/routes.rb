@@ -5,7 +5,9 @@ Rails.application.routes.draw do
       put   'append'
     end
   end
-  resources :plans
+  resources :plans do
+    resources :logs, only: [:index]
+  end
   resources :revisions
   post 'hooks/github' => 'hooks#github'
   root 'revisions#index'
