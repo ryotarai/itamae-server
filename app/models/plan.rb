@@ -4,6 +4,8 @@ class Plan < ActiveRecord::Base
 
   enum status: {pending: 0, in_progress: 1, completed: 2, aborted: 3}
 
+  validates :revision, presence: true
+
   after_commit :queue, on: :create
 
   def queue
