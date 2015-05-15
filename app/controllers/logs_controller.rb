@@ -6,6 +6,14 @@ class LogsController < ApplicationController
   # GET /logs.json
   def index
     @logs = Log.all
+
+    if plan_id = params[:plan_id]
+      @logs = @logs.where(plan_id: plan_id)
+    end
+
+    if host = params[:host]
+      @logs = @logs.where(host: host)
+    end
   end
 
   # GET /logs/1
