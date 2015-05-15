@@ -15,5 +15,9 @@
   <%= @log.file_path %>
 </p>
 
+<pre>
+<%= File.read(@log.absolute_file_path) %>
+</pre>
+
 <%= link_to 'Edit', edit_log_path(@log) %> |
 <%= link_to 'Back', logs_path %>
