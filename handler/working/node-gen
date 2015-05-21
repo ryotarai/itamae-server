@@ -1,7 +1,0 @@
-#!/usr/bin/env ruby
-require 'json'
-
-puts({
-  'role' => 'base',
-  'region' => 'ap-northeast-1',
-}.to_json)

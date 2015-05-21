@@ -10,6 +10,10 @@ echo Installing Consul...
 unzip consul.zip
 sudo chmod +x consul
 sudo mv consul /usr/bin/consul
+
+which git || apt-get install -y git
+which bundle || gem install bundler
+which itamae || gem install itamae
 SCRIPT
 
 Vagrant.configure(2) do |config|
