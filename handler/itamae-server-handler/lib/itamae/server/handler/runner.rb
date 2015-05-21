@@ -70,7 +70,8 @@ module Itamae
         def prepare
           event = ConsulEvent.all.last
           unless event
-            raise Error, "no Consul event"
+            puts "no Consul event"
+            exit
           end
 
           @plan = JSON.parse(conn.get("/plans/#{event.payload.to_i}.json").body)
