@@ -1,3 +1,4 @@
+require "itamae/server/handler/api_client"
 require "itamae/server/handler/cli"
 require "itamae/server/handler/consul_event"
 require "itamae/server/handler/log_writer"

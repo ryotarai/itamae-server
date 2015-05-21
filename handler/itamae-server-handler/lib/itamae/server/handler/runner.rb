@@ -20,7 +20,7 @@ module Itamae
         end
 
         def run
-          io = MultiIO.new($stdout, LogWriter.new(@options[:server_url], "logs/#{@log.fetch('id')}/append.json"))
+          io = MultiIO.new($stdout, LogWriter.new(@options[:server_url], "logs/#{@log.id}/append.json"))
           working_dir = Dir.pwd
 
           Dir.mktmpdir do |tmpdir|
@@ -35,11 +35,11 @@ module Itamae
               end
 
               # download
-              system_or_abort("wget", "-O", "recipes.tar", URI.join(@options[:server_url], @revision.fetch('file_path')).to_s)
+              system_or_abort("wget", "-O", "recipes.tar", URI.join(@options[:server_url], @revision.file_path).to_s)
               system_or_abort("tar", "xf", "recipes.tar")
 
               itamae_cmd = [ITAMAE_BIN, "local", '--node-json', 'node.json', '--log-level', 'debug']
-              itamae_cmd << "--dry-run" if @plan.fetch("is_dry_run")
+              itamae_cmd << "--dry-run" if @plan.is_dry_run
               itamae_cmd << BOOTSTRAP_RECIPE_FILE
 
               consul_cmd = ["consul", "lock", "-n", "1", CONSUL_LOCK_PREFIX, itamae_cmd.map(&:shellescape).join(' ')]
@@ -74,17 +74,11 @@ module Itamae
             exit
           end
 
-          @plan = JSON.parse(conn.get("/plans/#{event.payload.to_i}.json").body)
-          @revision = JSON.parse(conn.get("/revisions/#{@plan.fetch('revision_id')}.json").body)
-          logs = JSON.parse(conn.get("/plans/#{@plan.fetch('id')}/logs.json", host: Socket.gethostname).body)
-          @log = logs.first
-        end
+          client = APIClient.new(@options[:server_url])
 
-        def conn
-          @conn ||= Faraday.new(url: @options[:server_url]) do |faraday|
-            faraday.request :url_encoded
-            faraday.adapter Faraday.default_adapter
-          end
+          @plan = client.plan(event.payload.to_i)
+          @revision = client.revision(@plan.revision_id)
+          @log = client.logs_for_plan(@plan).first
         end
 
         def system_or_abort(*args)
