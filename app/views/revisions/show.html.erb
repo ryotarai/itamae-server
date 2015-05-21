@@ -5,5 +5,13 @@
   <%= @revision.name %>
 </p>
 
+<h2>Plans</h2>
+
+<ul>
+  <% @revision.plans.each do |plan| %>
+    <li><%= link_to "Plan ##{plan.id} (#{plan.status} / #{plan.is_dry_run ? "dry run" : "actual run"})", plan %></li>
+  <% end %>
+</ul>
+
 <%= link_to 'Edit', edit_revision_path(@revision) %> |
 <%= link_to 'Back', revisions_path %>

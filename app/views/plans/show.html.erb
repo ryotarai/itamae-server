@@ -15,5 +15,13 @@
   <%= @plan.is_dry_run %>
 </p>
 
+<h2>Logs</h2>
+
+<ul>
+  <% @plan.logs.each do |log| %>
+    <li><%= link_to "#{log.host} (#{log.status})", log %></li>
+  <% end %>
+</ul>
+
 <%= link_to 'Edit', edit_plan_path(@plan) %> |
 <%= link_to 'Back', plans_path %>
