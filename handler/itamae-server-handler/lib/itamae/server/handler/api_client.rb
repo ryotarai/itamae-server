@@ -15,6 +15,9 @@ module Itamae
           end
 
           class Revision < Struct.new(:client, :id, :file_path)
+            def file_url
+              URI.join(client.server_url, self.file_path).to_s
+            end
           end
 
           class Log < Struct.new(:client, :id)
@@ -54,44 +57,34 @@ module Itamae
         end
 
         def plan(id)
-          Response::Plan.new.tap do |plan|
-            res = get("/plans/#{id}.json")
-
-            plan.client = self
-            plan.members.each do |f|
-              next if f == :client
-              plan[f] = res.fetch(f.to_s)
-            end
-          end
+          res = get("/plans/#{id}.json")
+          create_model_from_response(Response::Plan, res)
         end
 
         def revision(id)
-          Response::Revision.new.tap do |revision|
-            res = get("/revisions/#{id}.json")
-
-            revision.client = self
-            revision.members.each do |f|
-              next if f == :client
-              revision[f] = res.fetch(f.to_s)
-            end
-          end
+          res = get("/revisions/#{id}.json")
+          create_model_from_response(Response::Revision, res)
         end
 
         def logs(criteria = {})
           criteria = {host: Socket.gethostname}.merge(criteria)
 
           get("/logs.json", criteria).map do |res|
-            Response::Log.new.tap do |log|
-              log.client = self
-              log.members.each do |f|
-                next if f == :client
-                log[f] = res.fetch(f.to_s)
-              end
-            end
+            create_model_from_response(Response::Log, res)
           end
         end
 
         private
+
+        def create_model_from_response(klass, res)
+          klass.new.tap do |model|
+            model.client = self
+            model.members.each do |f|
+              next if f == :client
+              model[f] = res.fetch(f.to_s)
+            end
+          end
+        end
 
         def get(*args)
           res = @conn.get(*args)

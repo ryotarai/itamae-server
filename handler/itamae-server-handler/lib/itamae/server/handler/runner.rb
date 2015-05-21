@@ -31,14 +31,14 @@ module Itamae
             end
 
             # download
-            system_or_abort("wget", "-O", "recipes.tar", URI.join(@options[:server_url], @revision.file_path).to_s)
+            system_or_abort("wget", "-O", "recipes.tar", @revision.file_url)
             system_or_abort("tar", "xf", "recipes.tar")
 
             itamae_cmd = [ITAMAE_BIN, "local", '--node-json', 'node.json', '--log-level', 'debug']
             itamae_cmd << "--dry-run" if @plan.is_dry_run
             itamae_cmd << BOOTSTRAP_RECIPE_FILE
 
-            consul_cmd = ["consul", "lock", "-n", "1", CONSUL_LOCK_PREFIX, itamae_cmd.map(&:shellescape).join(' ')]
+            consul_cmd = ["consul", "lock", "-n", "1", CONSUL_LOCK_PREFIX, itamae_cmd.shelljoin]
 
             execute_with_logger(*consul_cmd)
           end
@@ -97,7 +97,7 @@ module Itamae
             options = args.pop
           end
 
-          puts "executing: #{args.map(&:shellescape).join(' ')}"
+          puts "executing: #{args.shelljoin}"
           Bundler.with_clean_env do
             unless system(*args, options)
               raise "command failed."
