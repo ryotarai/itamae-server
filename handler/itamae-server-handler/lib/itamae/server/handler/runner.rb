@@ -20,7 +20,7 @@ module Itamae
         end
 
         def run
-          io = MultiIO.new($stdout, LogWriter.new(@options[:server_url], "logs/#{@log.id}/append.json"))
+          io = MultiIO.new($stdout, @log.create_writer)
           working_dir = Dir.pwd
 
           Dir.mktmpdir do |tmpdir|
@@ -78,7 +78,7 @@ module Itamae
 
           @plan = client.plan(event.payload.to_i)
           @revision = client.revision(@plan.revision_id)
-          @log = client.logs_for_plan(@plan).first
+          @log = @plan.logs.first
         end
 
         def system_or_abort(*args)
