@@ -16,6 +16,10 @@ module Backend
       api(:put, "/v1/event/fire/#{event_name}", plan.id.to_s)
     end
 
+    def abort(plan)
+      api(:put, "/v1/event/fire/#{abort_event_name}", plan.id.to_s)
+    end
+
     private
 
     def api(method, endpoint, body = nil)
@@ -37,6 +41,10 @@ module Backend
 
     def event_name
       ENV['CONSUL_EVENT'] || 'itamae'
+    end
+
+    def abort_event_name
+      ENV['CONSUL_ABORT_EVENT'] || 'itamae-abort'
     end
 
     def configure
