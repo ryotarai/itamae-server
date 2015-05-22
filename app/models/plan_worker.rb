@@ -15,7 +15,7 @@ class PlanWorker
     plan.save!
 
     Backend.current.hosts.each do |host|
-      plan.logs.create(host: host, status: :in_progress)
+      plan.logs.create(host: host, status: :pending)
     end
 
     Backend.current.kick(plan)
