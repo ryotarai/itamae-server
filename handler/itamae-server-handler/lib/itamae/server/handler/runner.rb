@@ -94,6 +94,10 @@ module Itamae
           @plan = client.plan(event.payload.to_i)
           @revision = client.revision(@plan.revision_id)
           @log = @plan.logs.first
+
+          unless @log.status == "pending"
+            raise "This event is already executed. (#{@log})"
+          end
         end
 
         def system_or_abort(*args)
