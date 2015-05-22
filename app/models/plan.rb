@@ -11,4 +11,8 @@ class Plan < ActiveRecord::Base
   def queue
     PlanWorker.perform_async(self.id)
   end
+
+  def abort
+    PlanAbortWorker.perform_async(self.id)
+  end
 end

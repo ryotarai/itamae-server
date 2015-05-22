@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   end
   resources :plans do
     resources :logs, only: [:index]
+    member do
+      delete 'abort'
+    end
   end
   resources :revisions
   post 'hooks/github' => 'hooks#github'

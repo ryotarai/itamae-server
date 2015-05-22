@@ -1,5 +1,5 @@
 class PlansController < ApplicationController
-  before_action :set_plan, only: [:show, :edit, :update, :destroy]
+  before_action :set_plan, only: [:show, :edit, :update, :destroy, :abort]
 
   # GET /plans
   # GET /plans.json
@@ -58,6 +58,16 @@ class PlansController < ApplicationController
     respond_to do |format|
       format.html { redirect_to plans_url, notice: 'Plan was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  # DELETE /plans/1/abort
+  # DELETE /plans/1/abort.json
+  def abort
+    @plan.abort
+    respond_to do |format|
+      format.html { redirect_to @plan, notice: 'Plan was successfully aborted.' }
+      format.json { render :show, status: :ok, location: @plan }
     end
   end
 
