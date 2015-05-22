@@ -71,6 +71,13 @@ module Itamae
                   end
                 end
               end
+
+              exitstatus = wait_thr.value.exitstatus
+              io.write("Itamae exited with #{exitstatus}\n")
+
+              unless exitstatus == 0
+                raise "Itamae exited with #{exitstatus}"
+              end
             end
           end
         end
