@@ -104,7 +104,7 @@ module Itamae
           @revision = client.revision(@plan.revision_id)
           @log = @plan.logs.first
 
-          unless @log.status == "pending"
+          if @options[:once] && @log.status != "pending"
             raise "This event is already executed. (#{@log})"
           end
         end
