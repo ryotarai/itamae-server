@@ -20,9 +20,13 @@ module Itamae
             end
           end
 
-          class Log < Struct.new(:client, :id)
+          class Log < Struct.new(:client, :id, :status)
             def create_writer
               LogWriter.new(self)
+            end
+
+            def mark_as(status)
+              self.client.update_log(self.id, status: status)
             end
           end
         end
@@ -74,6 +78,10 @@ module Itamae
           end
         end
 
+        def update_log(id, data = {})
+          patch("/logs/#{id}.json", log: data)
+        end
+
         private
 
         def create_model_from_response(klass, res)
@@ -91,6 +99,16 @@ module Itamae
 
           unless 200 <= res.status && res.status < 300
             raise Error, "API response is not 2xx. (#{res.inspect})"
+          end
+
+          JSON.parse(res.body)
+        end
+
+        def patch(*args)
+          res = @conn.patch(*args)
+
+          unless 200 <= res.status && res.status < 400
+            raise Error, "API response is not 2xx or 3xx. (#{res.inspect})"
           end
 
           JSON.parse(res.body)

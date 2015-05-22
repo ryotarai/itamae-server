@@ -20,8 +20,9 @@ module Itamae
         end
 
         def run
-          working_dir = Dir.pwd
+          @log.mark_as('in_progress')
 
+          working_dir = Dir.pwd
           in_tmpdir do
             node_attribute = File.expand_path(@options[:node_attribute], working_dir)
             if File.executable?(node_attribute)
@@ -42,6 +43,10 @@ module Itamae
 
             execute_with_logger(*consul_cmd)
           end
+          @log.mark_as('completed')
+        rescue
+          @log.mark_as('aborted')
+          raise
         end
 
         private
