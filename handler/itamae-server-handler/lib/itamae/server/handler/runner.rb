@@ -35,13 +35,15 @@ module Itamae
             system_or_abort("wget", "-O", "recipes.tar", @revision.file_url)
             system_or_abort("tar", "xf", "recipes.tar")
 
-            itamae_cmd = [ITAMAE_BIN, "local", '--node-json', 'node.json', '--log-level', 'debug']
-            itamae_cmd << "--dry-run" if @plan.is_dry_run
-            itamae_cmd << BOOTSTRAP_RECIPE_FILE
+            cmd = [ITAMAE_BIN, "local", '--node-json', 'node.json', '--log-level', 'debug']
+            cmd << "--dry-run" if @plan.is_dry_run
+            cmd << BOOTSTRAP_RECIPE_FILE
 
-            consul_cmd = ["consul", "lock", "-n", "1", CONSUL_LOCK_PREFIX, itamae_cmd.shelljoin]
+            if lock_concurrency = @options[:lock_concurrency]
+              cmd = ["consul", "lock", "-n", lock_concurrency.to_s, @options[:lock_name], cmd.shelljoin]
+            end
 
-            execute_with_logger(*consul_cmd)
+            execute_with_logger(*cmd)
           end
           @log.mark_as('completed')
         rescue
