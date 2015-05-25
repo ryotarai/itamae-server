@@ -26,5 +26,9 @@ class Log < ActiveRecord::Base
     if self.plan.in_progress? && self.plan.logs.all? {|log| log.completed? }
       self.plan.completed!
     end
+
+    if !self.plan.aborted? && self.aborted?
+      self.plan.aborted!
+    end
   end
 end
