@@ -43,7 +43,7 @@ module Itamae
               cmd = ["consul", "lock", "-n", lock_concurrency.to_s, @options[:lock_name], cmd.shelljoin]
             end
 
-            execute_with_logger(*cmd)
+            execute_itamae(*cmd)
           end
           @log.mark_as('completed')
         rescue
@@ -53,7 +53,7 @@ module Itamae
 
         private
 
-        def execute_with_logger(*cmd)
+        def execute_itamae(*cmd)
           io = MultiIO.new($stdout, @log.create_writer)
 
           Bundler.with_clean_env do
