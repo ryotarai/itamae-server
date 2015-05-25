@@ -18,6 +18,8 @@ class Revision < ActiveRecord::Base
   end
 
   def destroy_file
-    FileUtils.rm(self.absolute_file_path)
+    if self.absolute_file_path.exist?
+      FileUtils.rm(self.absolute_file_path)
+    end
   end
 end
