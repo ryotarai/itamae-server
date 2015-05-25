@@ -58,6 +58,11 @@ module Itamae
 
           Bundler.with_clean_env do
             Open3.popen3(*cmd) do |stdin, stdout, stderr, wait_thr|
+              @signal_handlers << proc do
+                # consul lock can treat only INT signal properly.
+                Process.kill(:INT, wait_thr[:pid])
+              end
+
               stdin.close
               readers = [stdout, stderr]
               while readers.any?
@@ -78,6 +83,8 @@ module Itamae
               unless exitstatus == 0
                 raise "Itamae exited with #{exitstatus}"
               end
+
+              @signal_handlers.pop
             end
           end
         end
@@ -92,6 +99,7 @@ module Itamae
         end
 
         def prepare
+          register_trap
           write_pid
 
           event = ConsulEvent.all.last
@@ -108,6 +116,10 @@ module Itamae
 
           if @options[:once] && @log.status != "pending"
             raise "This event is already executed. (#{@log})"
+          end
+
+          @signal_handlers << proc do
+            @log.mark_as('aborted')
           end
         end
 
@@ -137,6 +149,19 @@ module Itamae
             open(pid_file, 'w') {|f| f.write(Process.pid.to_s) }
 
             at_exit { pid_file.unlink }
+          end
+        end
+
+        def register_trap
+          @signal_handlers = []
+          [:INT, :TERM].each do |sig|
+            Signal.trap(sig) do
+              @signal_handlers.reverse_each do |h|
+                h.call
+              end
+
+              abort
+            end
           end
         end
       end
