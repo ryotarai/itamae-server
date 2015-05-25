@@ -12,7 +12,6 @@ class PlanWorker
     end
 
     plan.in_progress!
-    plan.save!
 
     Backend.current.hosts.each do |host|
       plan.logs.create(host: host, status: :pending)
@@ -22,7 +21,6 @@ class PlanWorker
   rescue => err
     Rails.logger.error "aborted: #{err.inspect}\n(backtrace)\n#{err.backtrace.join("\n")}"
     plan.aborted!
-    plan.save!
   end
 end
 

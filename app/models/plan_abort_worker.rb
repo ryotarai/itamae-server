@@ -12,7 +12,6 @@ class PlanAbortWorker
     end
 
     plan.aborted!
-    plan.save!
 
     Backend.current.abort(plan)
   end
