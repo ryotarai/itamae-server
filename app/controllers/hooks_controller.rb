@@ -4,7 +4,7 @@ class HooksController < ApplicationController
   skip_before_action :authenticate, only: [:github]
 
   def github
-    unless valid_signature?
+    unless valid_github_signature?
       render text: "Signature mismatch.", status: :unauthorized
       return
     end
@@ -16,7 +16,7 @@ class HooksController < ApplicationController
 
   private
 
-  def valid_signature?
+  def valid_github_signature?
     if github_secret = ENV['GITHUB_SECRET']
       sha1 = OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new('sha1'), github_secret, request.body.string)
       signature = "sha1=" + sha1
