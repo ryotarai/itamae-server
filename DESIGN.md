@@ -16,7 +16,7 @@
 - `status`
 - `updated`
 
-## Log
+## HostExecution
 
 ### Fields
 
@@ -28,13 +28,13 @@
 
 ## GET /revisions
 
-## POST /executions/1/logs
+## POST /executions/1/host_executions
 
-- Create a new log
+- Create a new host_execution
 
-## PUT /logs/1/append
+## PUT /host_executions/1/append
 
-- Append log
+- Append host_execution
 
 ## POST /hooks/github
 

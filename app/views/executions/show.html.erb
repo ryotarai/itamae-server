@@ -15,11 +15,11 @@
   <%= @execution.is_dry_run %>
 </p>
 
-<h2>Logs</h2>
+<h2>HostExecutions</h2>
 
 <ul>
-  <% @execution.logs.each do |log| %>
-    <li><%= link_to "#{log.host} (#{log.status})", log %></li>
+  <% @execution.host_executions.each do |host_execution| %>
+    <li><%= link_to "#{host_execution.host} (#{host_execution.status})", host_execution %></li>
   <% end %>
 </ul>
 

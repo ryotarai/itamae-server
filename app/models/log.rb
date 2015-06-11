@@ -1,4 +1,4 @@
-class Log < ActiveRecord::Base
+class HostExecution < ActiveRecord::Base
   belongs_to :execution
 
   enum status: {pending: 0, in_progress: 1, completed: 2, aborted: 3}
@@ -19,11 +19,11 @@ class Log < ActiveRecord::Base
   private
 
   def set_defaults
-    self.file_path ||= File.join("files", "logs", SecureRandom.uuid)
+    self.file_path ||= File.join("files", "host_executions", SecureRandom.uuid)
   end
 
   def update_execution_status
-    if self.execution.in_progress? && self.execution.logs.all? {|log| log.completed? }
+    if self.execution.in_progress? && self.execution.host_executions.all? {|host_execution| host_execution.completed? }
       self.execution.completed!
     end
 

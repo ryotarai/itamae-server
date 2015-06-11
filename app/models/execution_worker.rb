@@ -14,7 +14,7 @@ class ExecutionWorker
     execution.in_progress!
 
     Backend.current.hosts.each do |host|
-      execution.logs.create(host: host, status: :pending)
+      execution.host_executions.create(host: host, status: :pending)
     end
 
     Backend.current.kick(execution)

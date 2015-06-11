@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_from_auth_hash(auth_hash)
     unless @user
-      render text: "Logging in failed. Please ask administrator.", status: :unauthorized
+      render text: "HostExecutionging in failed. Please ask administrator.", status: :unauthorized
       return
     end
 

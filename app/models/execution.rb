@@ -1,6 +1,6 @@
 class Execution < ActiveRecord::Base
   belongs_to :revision
-  has_many :logs, dependent: :destroy
+  has_many :host_executions, dependent: :destroy
 
   enum status: {pending: 0, in_progress: 1, completed: 2, aborted: 3}
 

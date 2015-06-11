@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Logs</h1>
+<h1>Listing HostExecutions</h1>
 
 <table>
   <thead>
@@ -13,14 +13,14 @@
   </thead>
 
   <tbody>
-    <% @logs.each do |log| %>
+    <% @host_executions.each do |host_execution| %>
       <tr>
-        <td><%= log.host %></td>
-        <td><%= log.status %></td>
-        <td><%= log.file_path %></td>
-        <td><%= link_to 'Show', log %></td>
-        <td><%= link_to 'Edit', edit_log_path(log) %></td>
-        <td><%= link_to 'Destroy', log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= host_execution.host %></td>
+        <td><%= host_execution.status %></td>
+        <td><%= host_execution.file_path %></td>
+        <td><%= link_to 'Show', host_execution %></td>
+        <td><%= link_to 'Edit', edit_host_execution_path(host_execution) %></td>
+        <td><%= link_to 'Destroy', host_execution, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Log', new_log_path %>
+<%= link_to 'New HostExecution', new_host_execution_path %>

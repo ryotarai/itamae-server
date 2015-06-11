@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
   resources :users
-  resources :logs do
+  resources :host_executions do
     member do
       patch 'append'
       put   'append'
     end
   end
   resources :executions do
-    resources :logs, only: [:index]
+    resources :host_executions, only: [:index]
     member do
       delete 'abort'
     end

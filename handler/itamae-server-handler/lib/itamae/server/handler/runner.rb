@@ -20,7 +20,7 @@ module Itamae
         end
 
         def run
-          @log.mark_as('in_progress')
+          @host_execution.mark_as('in_progress')
 
           working_dir = Dir.pwd
           in_tmpdir do
@@ -35,7 +35,7 @@ module Itamae
             system_or_abort("wget", "-O", "recipes.tar", @revision.file_url)
             system_or_abort("tar", "xf", "recipes.tar")
 
-            cmd = [ITAMAE_BIN, "local", '--node-json', 'node.json', '--log-level', 'debug']
+            cmd = [ITAMAE_BIN, "local", '--node-json', 'node.json', '--host_execution-level', 'debug']
             cmd << "--dry-run" if @execution.is_dry_run
             cmd << BOOTSTRAP_RECIPE_FILE
 
@@ -45,16 +45,16 @@ module Itamae
 
             execute_itamae(*cmd)
           end
-          @log.mark_as('completed')
+          @host_execution.mark_as('completed')
         rescue
-          @log.mark_as('aborted')
+          @host_execution.mark_as('aborted')
           raise
         end
 
         private
 
         def execute_itamae(*cmd)
-          io = MultiIO.new($stdout, @log.create_writer)
+          io = MultiIO.new($stdout, @host_execution.create_writer)
 
           Bundler.with_clean_env do
             Open3.popen3(*cmd) do |stdin, stdout, stderr, wait_thr|
@@ -112,14 +112,14 @@ module Itamae
 
           @execution = client.execution(event.payload.to_i)
           @revision = client.revision(@execution.revision_id)
-          @log = @execution.logs.first
+          @host_execution = @execution.host_executions.first
 
-          if @options[:once] && @log.status != "pending"
-            raise "This event is already executed. (#{@log})"
+          if @options[:once] && @host_execution.status != "pending"
+            raise "This event is already executed. (#{@host_execution})"
           end
 
           @signal_handlers << proc do
-            @log.mark_as('aborted')
+            @host_execution.mark_as('aborted')
           end
         end
 

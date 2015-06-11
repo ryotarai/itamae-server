@@ -9,8 +9,8 @@ module Itamae
 
         module Response
           class Execution < Struct.new(:client, :id, :revision_id, :is_dry_run)
-            def logs
-              self.client.logs(execution_id: self.id)
+            def host_executions
+              self.client.host_executions(execution_id: self.id)
             end
           end
 
@@ -20,21 +20,21 @@ module Itamae
             end
           end
 
-          class Log < Struct.new(:client, :id, :status)
+          class HostExecution < Struct.new(:client, :id, :status)
             def create_writer
-              LogWriter.new(self)
+              HostExecutionWriter.new(self)
             end
 
             def mark_as(status)
-              self.client.update_log(self.id, status: status)
+              self.client.update_host_execution(self.id, status: status)
             end
           end
         end
 
-        class LogWriter
-          def initialize(log)
-            @endpoint = "logs/#{log.id}/append.json"
-            @conn = Faraday.new(url: log.client.server_url) do |f|
+        class HostExecutionWriter
+          def initialize(host_execution)
+            @endpoint = "host_executions/#{host_execution.id}/append.json"
+            @conn = Faraday.new(url: host_execution.client.server_url) do |f|
               f.adapter Faraday.default_adapter
             end
           end
@@ -45,7 +45,7 @@ module Itamae
             end
 
             unless 200 <= res.status && res.status < 300
-              raise "sending log failed"
+              raise "sending host_execution failed"
             end
           end
         end
@@ -70,16 +70,16 @@ module Itamae
           create_model_from_response(Response::Revision, res)
         end
 
-        def logs(criteria = {})
+        def host_executions(criteria = {})
           criteria = {host: Socket.gethostname}.merge(criteria)
 
-          get("/logs.json", criteria).map do |res|
-            create_model_from_response(Response::Log, res)
+          get("/host_executions.json", criteria).map do |res|
+            create_model_from_response(Response::HostExecution, res)
           end
         end
 
-        def update_log(id, data = {})
-          patch("/logs/#{id}.json", log: data)
+        def update_host_execution(id, data = {})
+          patch("/host_executions/#{id}.json", host_execution: data)
         end
 
         private

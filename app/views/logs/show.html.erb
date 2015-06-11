@@ -2,22 +2,22 @@
 
 <p>
   <strong>Host:</strong>
-  <%= @log.host %>
+  <%= @host_execution.host %>
 </p>
 
 <p>
   <strong>Status:</strong>
-  <%= @log.status %>
+  <%= @host_execution.status %>
 </p>
 
 <p>
   <strong>File path:</strong>
-  <%= @log.file_path %>
+  <%= @host_execution.file_path %>
 </p>
 
 <pre>
-<%= File.read(@log.absolute_file_path) %>
+<%= File.read(@host_execution.absolute_file_path) %>
 </pre>
 
-<%= link_to 'Edit', edit_log_path(@log) %> |
-<%= link_to 'Back', logs_path %>
+<%= link_to 'Edit', edit_host_execution_path(@host_execution) %> |
+<%= link_to 'Back', host_executions_path %>

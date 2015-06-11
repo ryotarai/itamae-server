@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20150525071855) do
 
-  create_table "logs", force: :cascade do |t|
+  create_table "host_executions", force: :cascade do |t|
     t.string   "host",       limit: 255
     t.integer  "status",     limit: 4,   default: 0
     t.string   "file_path",  limit: 255
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20150525071855) do
     t.integer  "execution_id",    limit: 4
   end
 
-  add_index "logs", ["execution_id"], name: "index_logs_on_execution_id", using: :btree
+  add_index "host_executions", ["execution_id"], name: "index_host_executions_on_execution_id", using: :btree
 
   create_table "executions", force: :cascade do |t|
     t.integer  "revision_id", limit: 4
@@ -47,6 +47,6 @@ ActiveRecord::Schema.define(version: 20150525071855) do
     t.datetime "updated_at",             null: false
   end
 
-  add_foreign_key "logs", "executions"
+  add_foreign_key "host_executions", "executions"
   add_foreign_key "executions", "revisions"
 end

@@ -1,6 +1,6 @@
-class CreateLogs < ActiveRecord::Migration
+class CreateHostExecutions < ActiveRecord::Migration
   def change
-    create_table :logs do |t|
+    create_table :host_executions do |t|
       t.string :host
       t.integer :status
       t.string :file_path

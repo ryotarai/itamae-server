@@ -1,10 +1,10 @@
-<%= form_for(@log) do |f| %>
-  <% if @log.errors.any? %>
+<%= form_for(@host_execution) do |f| %>
+  <% if @host_execution.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@log.errors.count, "error") %> prohibited this log from being saved:</h2>
+      <h2><%= pluralize(@host_execution.errors.count, "error") %> prohibited this host_execution from being saved:</h2>
 
       <ul>
-      <% @log.errors.full_messages.each do |message| %>
+      <% @host_execution.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
