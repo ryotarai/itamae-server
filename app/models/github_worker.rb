@@ -12,7 +12,7 @@ class GithubWorker
     clone_url = payload.fetch('repository').fetch('clone_url')
 
     unless permitted_clone_url?(clone_url)
-      raise "#{clone_url} is not permitted. Permitted URLs are #{permitted_clone_urls.inspect}"
+      raise Error, "#{clone_url} is not permitted. Permitted URLs are #{permitted_clone_urls.inspect}"
     end
 
     head_commit_id = payload.fetch('head_commit').fetch('id')
