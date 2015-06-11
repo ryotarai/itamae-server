@@ -7,8 +7,8 @@ class LogsController < ApplicationController
   def index
     @logs = Log.all
 
-    if plan_id = params[:plan_id]
-      @logs = @logs.where(plan_id: plan_id)
+    if execution_id = params[:execution_id]
+      @logs = @logs.where(execution_id: execution_id)
     end
 
     if host = params[:host]

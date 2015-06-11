@@ -19,12 +19,12 @@ ActiveRecord::Schema.define(version: 20150525071855) do
     t.string   "file_path",  limit: 255
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
-    t.integer  "plan_id",    limit: 4
+    t.integer  "execution_id",    limit: 4
   end
 
-  add_index "logs", ["plan_id"], name: "index_logs_on_plan_id", using: :btree
+  add_index "logs", ["execution_id"], name: "index_logs_on_execution_id", using: :btree
 
-  create_table "plans", force: :cascade do |t|
+  create_table "executions", force: :cascade do |t|
     t.integer  "revision_id", limit: 4
     t.integer  "status",      limit: 4, default: 0
     t.boolean  "is_dry_run",  limit: 1
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20150525071855) do
     t.datetime "updated_at",                        null: false
   end
 
-  add_index "plans", ["revision_id"], name: "index_plans_on_revision_id", using: :btree
+  add_index "executions", ["revision_id"], name: "index_executions_on_revision_id", using: :btree
 
   create_table "revisions", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -47,6 +47,6 @@ ActiveRecord::Schema.define(version: 20150525071855) do
     t.datetime "updated_at",             null: false
   end
 
-  add_foreign_key "logs", "plans"
-  add_foreign_key "plans", "revisions"
+  add_foreign_key "logs", "executions"
+  add_foreign_key "executions", "revisions"
 end

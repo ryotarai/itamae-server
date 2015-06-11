@@ -2,27 +2,27 @@
 
 <p>
   <strong>Revision:</strong>
-  <%= @plan.revision %>
+  <%= @execution.revision %>
 </p>
 
 <p>
   <strong>Status:</strong>
-  <%= @plan.status %>
+  <%= @execution.status %>
 </p>
 
 <p>
   <strong>Is dry run:</strong>
-  <%= @plan.is_dry_run %>
+  <%= @execution.is_dry_run %>
 </p>
 
 <h2>Logs</h2>
 
 <ul>
-  <% @plan.logs.each do |log| %>
+  <% @execution.logs.each do |log| %>
     <li><%= link_to "#{log.host} (#{log.status})", log %></li>
   <% end %>
 </ul>
 
-<%= link_to 'Abort', abort_plan_path(@plan), method: :delete, data: { confirm: 'Are you sure?' } %> | 
-<%= link_to 'Edit', edit_plan_path(@plan) %> |
-<%= link_to 'Back', plans_path %>
+<%= link_to 'Abort', abort_execution_path(@execution), method: :delete, data: { confirm: 'Are you sure?' } %> | 
+<%= link_to 'Edit', edit_execution_path(@execution) %> |
+<%= link_to 'Back', executions_path %>

@@ -1,2 +1,2 @@
-module PlansHelper
+module ExecutionsHelper
 end

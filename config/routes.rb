@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       put   'append'
     end
   end
-  resources :plans do
+  resources :executions do
     resources :logs, only: [:index]
     member do
       delete 'abort'

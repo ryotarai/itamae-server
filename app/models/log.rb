@@ -1,10 +1,10 @@
 class Log < ActiveRecord::Base
-  belongs_to :plan
+  belongs_to :execution
 
   enum status: {pending: 0, in_progress: 1, completed: 2, aborted: 3}
 
   before_save :set_defaults
-  after_commit :update_plan_status
+  after_commit :update_execution_status
 
   def append(text)
     open(absolute_file_path, "a") do |f|
@@ -22,13 +22,13 @@ class Log < ActiveRecord::Base
     self.file_path ||= File.join("files", "logs", SecureRandom.uuid)
   end
 
-  def update_plan_status
-    if self.plan.in_progress? && self.plan.logs.all? {|log| log.completed? }
-      self.plan.completed!
+  def update_execution_status
+    if self.execution.in_progress? && self.execution.logs.all? {|log| log.completed? }
+      self.execution.completed!
     end
 
-    if !self.plan.aborted? && self.aborted?
-      self.plan.aborted!
+    if !self.execution.aborted? && self.aborted?
+      self.execution.aborted!
     end
   end
 end

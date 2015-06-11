@@ -1,26 +1,26 @@
 require 'backend'
 
-class PlanWorker
+class ExecutionWorker
   include Sidekiq::Worker
 
-  def perform(plan_id)
-    plan = Plan.find(plan_id)
+  def perform(execution_id)
+    execution = Execution.find(execution_id)
 
-    unless plan.pending?
-      Rails.logger.info "#{plan} is not pending. skip"
+    unless execution.pending?
+      Rails.logger.info "#{execution} is not pending. skip"
       return
     end
 
-    plan.in_progress!
+    execution.in_progress!
 
     Backend.current.hosts.each do |host|
-      plan.logs.create(host: host, status: :pending)
+      execution.logs.create(host: host, status: :pending)
     end
 
-    Backend.current.kick(plan)
+    Backend.current.kick(execution)
   rescue => err
     Rails.logger.error "aborted: #{err.inspect}\n(backtrace)\n#{err.backtrace.join("\n")}"
-    plan.aborted!
+    execution.aborted!
   end
 end
 

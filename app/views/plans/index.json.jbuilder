@@ -1,4 +1,4 @@
-json.array!(@plans) do |plan|
-  json.extract! plan, :id, :revision_id, :status, :is_dry_run
-  json.url plan_url(plan, format: :json)
+json.array!(@executions) do |execution|
+  json.extract! execution, :id, :revision_id, :status, :is_dry_run
+  json.url execution_url(execution, format: :json)
 end

@@ -1,5 +1,5 @@
 class Revision < ActiveRecord::Base
-  has_many :plans, dependent: :destroy
+  has_many :executions, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
   validates :file_path, presence: true

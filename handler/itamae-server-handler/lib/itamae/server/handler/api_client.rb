@@ -8,9 +8,9 @@ module Itamae
         class Error < StandardError; end
 
         module Response
-          class Plan < Struct.new(:client, :id, :revision_id, :is_dry_run)
+          class Execution < Struct.new(:client, :id, :revision_id, :is_dry_run)
             def logs
-              self.client.logs(plan_id: self.id)
+              self.client.logs(execution_id: self.id)
             end
           end
 
@@ -60,9 +60,9 @@ module Itamae
           end
         end
 
-        def plan(id)
-          res = get("/plans/#{id}.json")
-          create_model_from_response(Response::Plan, res)
+        def execution(id)
+          res = get("/executions/#{id}.json")
+          create_model_from_response(Response::Execution, res)
         end
 
         def revision(id)

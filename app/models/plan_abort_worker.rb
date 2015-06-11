@@ -1,19 +1,19 @@
 require 'backend'
 
-class PlanAbortWorker
+class ExecutionAbortWorker
   include Sidekiq::Worker
 
-  def perform(plan_id)
-    plan = Plan.find(plan_id)
+  def perform(execution_id)
+    execution = Execution.find(execution_id)
 
-    if plan.aborted?
-      Rails.logger.info "#{plan} is already aborted. skip"
+    if execution.aborted?
+      Rails.logger.info "#{execution} is already aborted. skip"
       return
     end
 
-    plan.aborted!
+    execution.aborted!
 
-    Backend.current.abort(plan)
+    Backend.current.abort(execution)
   end
 end
 

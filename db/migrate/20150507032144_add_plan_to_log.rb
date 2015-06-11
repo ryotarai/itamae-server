@@ -1,5 +1,5 @@
-class AddPlanToLog < ActiveRecord::Migration
+class AddExecutionToLog < ActiveRecord::Migration
   def change
-    add_reference :logs, :plan, index: true, foreign_key: true
+    add_reference :logs, :execution, index: true, foreign_key: true
   end
 end

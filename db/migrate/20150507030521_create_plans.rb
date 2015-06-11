@@ -1,6 +1,6 @@
-class CreatePlans < ActiveRecord::Migration
+class CreateExecutions < ActiveRecord::Migration
   def change
-    create_table :plans do |t|
+    create_table :executions do |t|
       t.references :revision, index: true, foreign_key: true
       t.integer :status
       t.boolean :is_dry_run

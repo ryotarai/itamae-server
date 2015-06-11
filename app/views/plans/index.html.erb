@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Plans</h1>
+<h1>Listing Executions</h1>
 
 <table>
   <thead>
@@ -13,14 +13,14 @@
   </thead>
 
   <tbody>
-    <% @plans.each do |plan| %>
+    <% @executions.each do |execution| %>
       <tr>
-        <td><%= plan.revision %></td>
-        <td><%= plan.status %></td>
-        <td><%= plan.is_dry_run %></td>
-        <td><%= link_to 'Show', plan %></td>
-        <td><%= link_to 'Edit', edit_plan_path(plan) %></td>
-        <td><%= link_to 'Destroy', plan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= execution.revision %></td>
+        <td><%= execution.status %></td>
+        <td><%= execution.is_dry_run %></td>
+        <td><%= link_to 'Show', execution %></td>
+        <td><%= link_to 'Edit', edit_execution_path(execution) %></td>
+        <td><%= link_to 'Destroy', execution, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Plan', new_plan_path %>
+<%= link_to 'New Execution', new_execution_path %>

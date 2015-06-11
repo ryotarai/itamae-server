@@ -1,4 +1,4 @@
-class Plan < ActiveRecord::Base
+class Execution < ActiveRecord::Base
   belongs_to :revision
   has_many :logs, dependent: :destroy
 
@@ -9,10 +9,10 @@ class Plan < ActiveRecord::Base
   after_commit :queue, on: :create
 
   def queue
-    PlanWorker.perform_async(self.id)
+    ExecutionWorker.perform_async(self.id)
   end
 
   def abort
-    PlanAbortWorker.perform_async(self.id)
+    ExecutionAbortWorker.perform_async(self.id)
   end
 end

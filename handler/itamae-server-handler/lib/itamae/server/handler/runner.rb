@@ -36,7 +36,7 @@ module Itamae
             system_or_abort("tar", "xf", "recipes.tar")
 
             cmd = [ITAMAE_BIN, "local", '--node-json', 'node.json', '--log-level', 'debug']
-            cmd << "--dry-run" if @plan.is_dry_run
+            cmd << "--dry-run" if @execution.is_dry_run
             cmd << BOOTSTRAP_RECIPE_FILE
 
             if lock_concurrency = @options[:lock_concurrency]
@@ -110,9 +110,9 @@ module Itamae
 
           client = APIClient.new(@options[:server_url])
 
-          @plan = client.plan(event.payload.to_i)
-          @revision = client.revision(@plan.revision_id)
-          @log = @plan.logs.first
+          @execution = client.execution(event.payload.to_i)
+          @revision = client.revision(@execution.revision_id)
+          @log = @execution.logs.first
 
           if @options[:once] && @log.status != "pending"
             raise "This event is already executed. (#{@log})"
