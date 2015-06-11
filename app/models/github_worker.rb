@@ -35,7 +35,9 @@ class GithubWorker
       revision = Revision.new(name: head_commit_id)
       revision.save!
 
-      system_or_error("tar", "c", "--exclude", "^.git", "-f", revision.absolute_file_path.to_s, ".")
+      Dir.chdir(recipe_directory) do
+        system_or_error("tar", "c", "--exclude", "^.git", "-f", revision.absolute_file_path.to_s, ".")
+      end
     end
   end
 
@@ -58,6 +60,10 @@ class GithubWorker
 
   def permitted_clone_url?(url)
     permitted_clone_urls.empty? || permitted_clone_urls.include?(url)
+  end
+
+  def recipe_directory
+    ENV['RECIPE_DIRECTORY'] || '.'
   end
 end
 
