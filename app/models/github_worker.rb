@@ -6,18 +6,26 @@ class GithubWorker
 
   include Sidekiq::Worker
 
-  def perform(payload_string)
+  def perform(event_type, payload_string)
     payload = JSON.parse(payload_string)
 
-    clone_url = payload.fetch('repository').fetch('clone_url')
+    event = case event_type
+            when 'push'
+              parse_push_payload(payload)
+            when 'pull_request'
+              parse_pull_request_payload(payload)
+            else
+              raise Error, "Unsupported GitHub event: #{event_type}"
+            end
 
-    unless permitted_clone_url?(clone_url)
-      raise Error, "#{clone_url} is not permitted. Permitted URLs are #{permitted_clone_urls.inspect}"
+    if event_type == 'pull_request' && event[:action] != 'opened'
     end
 
-    head_commit_id = payload.fetch('head_commit').fetch('id')
+    unless permitted_clone_url?(event[:clone_url])
+      raise Error, "#{event[:clone_url]} is not permitted. Permitted URLs are #{permitted_clone_urls.inspect}"
+    end
 
-    clone_uri = URI.parse(clone_url)
+    clone_uri = URI.parse(event[:clone_url])
     clone_to = WORKSPACE_DIR.join(clone_uri.hostname, clone_uri.path.gsub(%r{\A/}, ''))
 
     if clone_to.exist?
@@ -26,13 +34,13 @@ class GithubWorker
       end
     else
       FileUtils.mkdir_p(clone_to.parent.to_s)
-      system_or_error(GIT_BIN, "clone", clone_url, clone_to.to_s)
+      system_or_error(GIT_BIN, "clone", event[:clone_url], clone_to.to_s)
     end
 
     Dir.chdir(clone_to.to_s) do
-      system_or_error(GIT_BIN, "checkout", "-f", head_commit_id)
+      system_or_error(GIT_BIN, "checkout", "-f", event[:head_commit_id])
 
-      revision = Revision.new(name: head_commit_id)
+      revision = Revision.new(name: event[:head_commit_id])
       revision.save!
 
       Dir.chdir(recipe_directory) do
@@ -64,6 +72,21 @@ class GithubWorker
 
   def recipe_directory
     ENV['RECIPE_DIRECTORY'] || '.'
+  end
+
+  def parse_push_payload(payload)
+    {
+      clone_url: payload.fetch('repository').fetch('clone_url'),
+      head_commit_id: payload.fetch('head_commit').fetch('id'),
+    }
+  end
+
+  def parse_pull_request_payload(payload)
+    {
+      action: payload.fetch('action'),
+      clone_url: payload.fetch('pull_request').fetch('head').fetch('repo').fetch('clone_url'),
+      head_commit_id: payload.fetch('pull_request').fetch('head').fetch('sha'),
+    }
   end
 end
 

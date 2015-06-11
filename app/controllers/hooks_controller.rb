@@ -9,7 +9,7 @@ class HooksController < ApplicationController
       return
     end
 
-    GithubWorker.perform_async(request.body.string)
+    GithubWorker.perform_async(request.headers['X-GitHub-Event'], request.body.string)
 
     render json: {status: "success"}
   end
