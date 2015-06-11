@@ -10,6 +10,11 @@ class GithubWorker
     payload = JSON.parse(payload_string)
 
     clone_url = payload.fetch('repository').fetch('clone_url')
+
+    unless permitted_clone_url?(clone_url)
+      raise "#{clone_url} is not permitted. Permitted URLs are #{permitted_clone_urls.inspect}"
+    end
+
     head_commit_id = payload.fetch('head_commit').fetch('id')
 
     clone_uri = URI.parse(clone_url)
@@ -41,6 +46,18 @@ class GithubWorker
     unless system(*args)
       raise Error, "failed: #{args}"
     end
+  end
+
+  def permitted_clone_urls
+    if urls = ENV['PERMITTED_CLONE_URLS']
+      urls.split(',')
+    else
+      []
+    end
+  end
+
+  def permitted_clone_url?(url)
+    permitted_clone_urls.empty? || permitted_clone_urls.include?(url)
   end
 end
 
