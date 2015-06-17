@@ -142,6 +142,8 @@ GEM
     redis (3.2.1)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
+    revision_plate (0.1.2)
+      rack
     rspec-core (3.2.3)
       rspec-support (~> 3.2.0)
     rspec-expectations (3.2.1)
@@ -218,6 +220,7 @@ DEPENDENCIES
   mysql2
   omniauth-google-oauth2
   rails (= 4.2.1)
+  revision_plate
   rspec-rails (~> 3.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
