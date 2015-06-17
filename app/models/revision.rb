@@ -11,6 +11,11 @@ class Revision < ActiveRecord::Base
     Rails.root.join('public', file_path)
   end
 
+  def store_file(path)
+    # currently only local file supported
+    FileUtils.cp(path, @revision.absolute_file_path)
+  end
+
   private
 
   def set_defaults

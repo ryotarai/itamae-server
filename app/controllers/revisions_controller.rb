@@ -28,7 +28,7 @@ class RevisionsController < ApplicationController
 
     if @revision.save
       recipes_tar = params[:revision][:recipes_tar]
-      FileUtils.mv(recipes_tar.path, @revision.absolute_file_path)
+      @revision.store_file(recipes_tar.path)
       respond_to do |format|
         format.html { redirect_to @revision, notice: 'Revision was successfully created.' }
         format.json { render :show, status: :created, location: @revision }

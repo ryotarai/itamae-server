@@ -1,3 +1,5 @@
+require 'tmpdir'
+
 class GithubWorker
   class Error < StandardError; end
 
@@ -44,7 +46,11 @@ class GithubWorker
       revision.save!
 
       Dir.chdir(recipe_directory) do
-        system_or_error("tar", "c", "--exclude", "^.git", "-f", revision.absolute_file_path.to_s, ".")
+        Dir.mktmpdir do |tmpdir|
+          tmppath = File.join(tmpdir, "recipes.tar")
+          system_or_error("tar", "c", "--exclude", "^.git", "-f", tmppath, ".")
+          revision.store_file(tmppath)
+        end
       end
     end
   end
