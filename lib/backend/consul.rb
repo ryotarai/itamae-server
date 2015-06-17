@@ -12,8 +12,12 @@ module Backend
       end
     end
 
-    def kick(plan)
-      api(:put, "/v1/event/fire/#{event_name}", plan.id.to_s)
+    def kick(execution)
+      api(:put, "/v1/event/fire/#{event_name}", execution.id.to_s)
+    end
+
+    def abort(execution)
+      api(:put, "/v1/event/fire/#{abort_event_name}", execution.id.to_s)
     end
 
     private
@@ -37,6 +41,10 @@ module Backend
 
     def event_name
       ENV['CONSUL_EVENT'] || 'itamae'
+    end
+
+    def abort_event_name
+      ENV['CONSUL_ABORT_EVENT'] || 'itamae-abort'
     end
 
     def configure

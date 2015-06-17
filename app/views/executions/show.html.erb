@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Revision:</strong>
+  <%= @execution.revision %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @execution.status %>
+</p>
+
+<p>
+  <strong>Is dry run:</strong>
+  <%= @execution.is_dry_run %>
+</p>
+
+<h2>HostExecutions</h2>
+
+<ul>
+  <% @execution.host_executions.each do |host_execution| %>
+    <li><%= link_to "#{host_execution.host} (#{host_execution.status})", host_execution %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Abort', abort_execution_path(@execution), method: :delete, data: { confirm: 'Are you sure?' } %> | 
+<%= link_to 'Edit', edit_execution_path(@execution) %> |
+<%= link_to 'Back', executions_path %>

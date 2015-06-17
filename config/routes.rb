@@ -1,14 +1,22 @@
 Rails.application.routes.draw do
-  resources :logs do
+  resources :users
+  resources :host_executions do
     member do
       patch 'append'
       put   'append'
     end
   end
-  resources :plans
+  resources :executions do
+    resources :host_executions, only: [:index]
+    member do
+      delete 'abort'
+    end
+  end
   resources :revisions
   post 'hooks/github' => 'hooks#github'
   root 'revisions#index'
+
+  get '/auth/:provider/callback', to: 'sessions#create'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

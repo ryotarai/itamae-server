@@ -26,11 +26,15 @@ class RevisionsController < ApplicationController
   def create
     @revision = Revision.new(revision_params)
 
-    respond_to do |format|
-      if @revision.save
+    if @revision.save
+      recipes_tar = params[:revision][:recipes_tar]
+      FileUtils.mv(recipes_tar.path, @revision.absolute_file_path)
+      respond_to do |format|
         format.html { redirect_to @revision, notice: 'Revision was successfully created.' }
         format.json { render :show, status: :created, location: @revision }
-      else
+      end
+    else
+      respond_to do |format|
         format.html { render :new }
         format.json { render json: @revision.errors, status: :unprocessable_entity }
       end

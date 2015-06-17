@@ -4,7 +4,11 @@ module Backend
       raise NotImplementedError
     end
 
-    def kick(plan)
+    def kick(execution)
+      raise NotImplementedError
+    end
+
+    def abort(execution)
       raise NotImplementedError
     end
   end

@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+require 'itamae/server/handler'
+Itamae::Server::Handler::CLI.start

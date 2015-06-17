@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Host:</strong>
+  <%= @host_execution.host %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @host_execution.status %>
+</p>
+
+<p>
+  <strong>File path:</strong>
+  <%= @host_execution.file_path %>
+</p>
+
+<pre>
+<%= File.read(@host_execution.absolute_file_path) %>
+</pre>
+
+<%= link_to 'Edit', edit_host_execution_path(@host_execution) %> |
+<%= link_to 'Back', host_executions_path %>

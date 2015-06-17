@@ -5,10 +5,15 @@
   <%= @revision.name %>
 </p>
 
-<p>
-  <strong>Tar url:</strong>
-  <%= @revision.tar_url %>
-</p>
+<h2>Executions</h2>
+
+<%= link_to "New Execution", new_execution_path(revision_id: @revision.id) %>
+
+<ul>
+  <% @revision.executions.each do |execution| %>
+    <li><%= link_to "Execution ##{execution.id} (#{execution.status} / #{execution.is_dry_run ? "dry run" : "actual run"})", execution %></li>
+  <% end %>
+</ul>
 
 <%= link_to 'Edit', edit_revision_path(@revision) %> |
 <%= link_to 'Back', revisions_path %>

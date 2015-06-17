@@ -1,0 +1,25 @@
+<%= form_for(@execution) do |f| %>
+  <% if @execution.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@execution.errors.count, "error") %> prohibited this execution from being saved:</h2>
+
+      <ul>
+      <% @execution.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :revision_id %><br>
+    <%= f.text_field :revision_id, value: params[:revision_id] %>
+  </div>
+  <div class="field">
+    <%= f.label :is_dry_run %><br>
+    <%= f.check_box :is_dry_run %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
