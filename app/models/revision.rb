@@ -1,30 +1,23 @@
+require 'storage'
+
 class Revision < ActiveRecord::Base
   has_many :executions, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
-  validates :file_path, presence: true
 
-  after_initialize :set_defaults
-  after_destroy :destroy_file
-
-  def absolute_file_path
-    Rails.root.join('public', file_path)
-  end
+  after_destroy :delete_file
 
   def store_file(path)
-    # currently only local file supported
-    FileUtils.cp(path, @revision.absolute_file_path)
+    Storage.current.store_file(file_key, path)
   end
 
   private
 
-  def set_defaults
-    self.file_path ||= File.join("files", 'recipes', "#{SecureRandom.uuid}.tar")
+  def delete_file
+    Storage.current.delete_file(file_key)
   end
 
-  def destroy_file
-    if self.absolute_file_path.exist?
-      FileUtils.rm(self.absolute_file_path)
-    end
+  def file_key
+    "revisions/#{self.id}.tar.gz"
   end
 end

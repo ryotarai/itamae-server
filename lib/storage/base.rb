@@ -7,5 +7,9 @@ module Storage
     def url_for_file(key)
       raise NotImplementedError
     end
+
+    def delete_file(key)
+      raise NotImplementedError
+    end
   end
 end

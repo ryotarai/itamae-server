@@ -11,18 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150525071855) do
-
-  create_table "host_executions", force: :cascade do |t|
-    t.string   "host",       limit: 255
-    t.integer  "status",     limit: 4,   default: 0
-    t.string   "file_path",  limit: 255
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.integer  "execution_id",    limit: 4
-  end
-
-  add_index "host_executions", ["execution_id"], name: "index_host_executions_on_execution_id", using: :btree
+ActiveRecord::Schema.define(version: 20150617161852) do
 
   create_table "executions", force: :cascade do |t|
     t.integer  "revision_id", limit: 4
@@ -34,11 +23,21 @@ ActiveRecord::Schema.define(version: 20150525071855) do
 
   add_index "executions", ["revision_id"], name: "index_executions_on_revision_id", using: :btree
 
+  create_table "host_executions", force: :cascade do |t|
+    t.string   "host",         limit: 255
+    t.integer  "status",       limit: 4,   default: 0
+    t.string   "file_path",    limit: 255
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "execution_id", limit: 4
+  end
+
+  add_index "host_executions", ["execution_id"], name: "index_host_executions_on_execution_id", using: :btree
+
   create_table "revisions", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.string   "file_path",  limit: 255
   end
 
   create_table "users", force: :cascade do |t|
@@ -47,6 +46,6 @@ ActiveRecord::Schema.define(version: 20150525071855) do
     t.datetime "updated_at",             null: false
   end
 
-  add_foreign_key "host_executions", "executions"
   add_foreign_key "executions", "revisions"
+  add_foreign_key "host_executions", "executions"
 end
