@@ -18,6 +18,9 @@ Rails.application.routes.draw do
 
   get '/auth/:provider/callback', to: 'sessions#create'
 
+  revision_endpoint = ENV['REVISION_ENDPOINT'] || '/site/sha'
+  get revision_endpoint => RevisionPlate::App.new
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
