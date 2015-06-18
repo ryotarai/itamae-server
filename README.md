@@ -33,6 +33,14 @@ GOOGLE_HOSTED_DOMAIN=example.com
 
 #### Consul Backend
 
+```
+BACKEND_TYPE=consul
+CONSUL_SERVICE=itamae
+CONSUL_EVENT=itamae-server-event             # optional
+CONSUL_ABORT_EVENT=itamae-server-abort-event # optional
+CONSUL_URL=http://consul:8500                # optional
+```
+
 ### Storage
 
 Storage will be used to store recipe tarball and execution log.
