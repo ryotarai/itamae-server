@@ -20,7 +20,7 @@ module Storage
     def generate_s3_key(key)
       key = key.gsub(%r{\A/}, '')
       dir = root_directory.gsub(%r{/\z}, '')
-      return key if dir
+      return key if dir.empty?
       "#{dir}/#{key}"
     end
 
