@@ -36,19 +36,19 @@ module Backend
     end
 
     def service_name
-      ENV.fetch('CONSUL_SERVICE')
+      fetch_env('CONSUL_SERVICE')
     end
 
     def event_name
-      ENV['CONSUL_EVENT'] || 'itamae'
+      fetch_env('CONSUL_EVENT', 'itamae')
     end
 
     def abort_event_name
-      ENV['CONSUL_ABORT_EVENT'] || 'itamae-abort'
+      fetch_env('CONSUL_ABORT_EVENT', 'itamae-abort')
     end
 
     def configure
-      consul_url = ENV['CONSUL_URL'] || "http://localhost:8500"
+      consul_url = fetch_env('CONSUL_URL', "http://localhost:8500")
       @conn = Faraday.new(url: consul_url) do |faraday|
         faraday.request :url_encoded
         faraday.adapter Faraday.default_adapter
