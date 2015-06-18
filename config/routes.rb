@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   resources :users
   resources :host_executions do
     member do
-      patch 'append'
-      put   'append'
+      patch 'append_log'
+      put   'append_log'
     end
   end
   resources :executions do

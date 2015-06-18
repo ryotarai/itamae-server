@@ -6,7 +6,7 @@ class HostExecution < ActiveRecord::Base
   before_save :set_defaults
   after_commit :update_execution_status
 
-  def append(text)
+  def append_log(text)
     open(absolute_file_path, "a") do |f|
       f.write(text)
     end

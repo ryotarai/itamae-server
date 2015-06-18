@@ -1,5 +1,5 @@
 class HostExecutionsController < ApplicationController
-  protect_from_forgery except: [:append, :update]
+  protect_from_forgery except: [:append_log, :update]
   before_action :set_host_execution, only: [:show, :edit, :update, :destroy, :append]
 
   # GET /host_executions
@@ -60,10 +60,10 @@ class HostExecutionsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /host_executions/1/append
-  # PATCH/PUT /host_executions/1/append.json
-  def append
-    @host_execution.append(request.body.string)
+  # PATCH/PUT /host_executions/1/append_log
+  # PATCH/PUT /host_executions/1/append_log.json
+  def append_log
+    @host_execution.append_log(request.body.string)
 
     respond_to do |format|
       format.html { redirect_to @host_execution, notice: 'HostExecution was successfully updated.' }
