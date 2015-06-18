@@ -1,6 +1,6 @@
 class HostExecutionsController < ApplicationController
   protect_from_forgery except: [:append_log, :update]
-  before_action :set_host_execution, only: [:show, :edit, :update, :destroy, :append]
+  before_action :set_host_execution, only: [:show, :edit, :update, :destroy, :append_log]
 
   # GET /host_executions
   # GET /host_executions.json
