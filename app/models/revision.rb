@@ -11,6 +11,10 @@ class Revision < ActiveRecord::Base
     Storage.current.store_file(file_key, path)
   end
 
+  def file_url
+    Storage.current.url_for_file(file_key)
+  end
+
   private
 
   def delete_file
