@@ -10,13 +10,8 @@
   <%= @host_execution.status %>
 </p>
 
-<p>
-  <strong>File path:</strong>
-  <%= @host_execution.file_path %>
-</p>
-
 <pre>
-<%= File.read(@host_execution.absolute_file_path) %>
+<%= @host_execution.read_log %>
 </pre>
 
 <%= link_to 'Edit', edit_host_execution_path(@host_execution) %> |

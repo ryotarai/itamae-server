@@ -4,7 +4,11 @@ require 'aws-sdk'
 module Storage
   class S3 < Base
     def store_file(key, file_path)
-      bucket.put_object(body: open(file_path), key: generate_s3_key(key))
+      store(key, open(file_path))
+    end
+
+    def store(key, body)
+      bucket.put_object(body: body, key: generate_s3_key(key))
     end
 
     def url_for_file(key)
@@ -13,6 +17,14 @@ module Storage
 
     def delete_file(key)
       bucket.object(generate_s3_key(key)).delete
+    end
+
+    def read_and_join_under(prefix)
+      bucket.objects(prefix: generate_s3_key(prefix)).sort do |a, b|
+        a.key <=> b.key
+      end.map do |object|
+        object.get.body.string
+      end.join
     end
 
     private

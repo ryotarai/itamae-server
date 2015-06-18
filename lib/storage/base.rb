@@ -6,11 +6,19 @@ module Storage
       raise NotImplementedError
     end
 
+    def store(key, body)
+      raise NotImplementedError
+    end
+
     def url_for_file(key)
       raise NotImplementedError
     end
 
     def delete_file(key)
+      raise NotImplementedError
+    end
+
+    def read_and_join_under(prefix)
       raise NotImplementedError
     end
 
