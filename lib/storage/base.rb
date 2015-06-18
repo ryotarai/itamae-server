@@ -22,6 +22,8 @@ module Storage
       unless value
         raise Error, "'#{key}' is not set."
       end
+
+      value
     end
   end
 end
