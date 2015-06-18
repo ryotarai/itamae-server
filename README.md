@@ -12,6 +12,23 @@ $ bin/rails s
 
 ## Configuration
 
+### Authentication
+
+By default, users can access itamae-server without any authentication.
+
+#### Google
+
+```
+GOOGLE_CLIENT_ID=yourid
+GOOGLE_CLIENT_SECRET=yoursecret
+```
+
+Optionally, you can restrict hosted domain:
+
+```
+GOOGLE_HOSTED_DOMAIN=example.com
+```
+
 ### Backend
 
 #### Consul Backend
