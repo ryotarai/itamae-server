@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 
+gem 'aws-sdk', '~> 2'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'dotenv-rails'
 gem 'faraday'

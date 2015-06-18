@@ -1,5 +1,6 @@
 require 'storage/base'
 require 'storage/local'
+require 'storage/s3'
 
 module Storage
   def self.current
@@ -10,6 +11,8 @@ module Storage
     klass = case type
             when 'local'
               Local
+            when 's3'
+              S3
             else
               raise "unknown storage: #{type}"
             end
