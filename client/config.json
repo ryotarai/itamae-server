@@ -1,7 +1,0 @@
-{
-"server": true,
-"bootstrap_expect": 1,
-"data_dir": "/tmp/consul",
-"start_join": ["192.168.55.10"],
-"client_addr": "0.0.0.0"
-}
