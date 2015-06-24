@@ -5,6 +5,9 @@ class RevisionsController < ApplicationController
   # GET /revisions.json
   def index
     @revisions = Revision.all
+    if name = params[:name]
+      @revisions = @revisions.where(name: name)
+    end
   end
 
   # GET /revisions/1
