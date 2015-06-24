@@ -89,6 +89,6 @@ class HostExecutionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def host_execution_params
-      params.require(:host_execution).permit(:host, :status)
+      params.require(:host_execution).permit(:execution_id, :host, :status)
     end
 end
