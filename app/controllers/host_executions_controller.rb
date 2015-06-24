@@ -1,5 +1,5 @@
 class HostExecutionsController < ApplicationController
-  protect_from_forgery except: [:append_log, :update]
+  protect_from_forgery except: [:append_log, :create, :update]
   before_action :set_host_execution, only: [:show, :edit, :update, :destroy, :append_log]
 
   # GET /host_executions

@@ -1,4 +1,5 @@
 class ExecutionsController < ApplicationController
+  protect_from_forgery except: [:create]
   before_action :set_execution, only: [:show, :edit, :update, :destroy, :abort]
 
   # GET /executions
