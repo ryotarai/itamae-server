@@ -11,7 +11,7 @@ class HostExecution < ActiveRecord::Base
   after_commit :update_execution_status
 
   def append_log(text)
-    key = "#{log_key_prefix}/#{Time.now.to_i}.txt"
+    key = "#{log_key_prefix}/#{Time.now.to_f}.txt"
     Storage.current.store(key, text)
   end
 
