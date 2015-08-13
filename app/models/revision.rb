@@ -4,8 +4,6 @@ class Revision < ActiveRecord::Base
   has_many :executions, dependent: :destroy
   has_many :tags, as: :target
 
-  validates :name, presence: true, uniqueness: true
-
   after_destroy :delete_file
 
   def store_file(path)

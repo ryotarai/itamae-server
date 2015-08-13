@@ -42,8 +42,8 @@ class GithubWorker
     Dir.chdir(clone_to.to_s) do
       system_or_error(GIT_BIN, "checkout", "-f", event[:head_commit_id])
 
-      revision = Revision.new(name: event[:head_commit_id])
-      revision.save!
+      revision = Revision.create!
+      revision.tags.create!(key: "commit_id", value: event[:head_commit_id])
 
       Dir.chdir(recipe_directory) do
         Dir.mktmpdir do |tmpdir|
@@ -95,4 +95,3 @@ class GithubWorker
     }
   end
 end
-

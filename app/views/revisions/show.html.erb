@@ -1,10 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @revision.name %>
-</p>
-
 <h2>Executions</h2>
 
 <%= link_to "New Execution", new_execution_path(revision_id: @revision.id) %>

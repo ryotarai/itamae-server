@@ -5,9 +5,6 @@ class RevisionsController < ApplicationController
   # GET /revisions.json
   def index
     @revisions = Revision.all
-    if name = params[:name]
-      @revisions = @revisions.where(name: name)
-    end
   end
 
   # GET /revisions/1
@@ -76,6 +73,6 @@ class RevisionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def revision_params
-      params.require(:revision).permit(:name, :tar_url)
+      params.require(:revision).permit()
     end
 end
