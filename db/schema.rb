@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813063000) do
+ActiveRecord::Schema.define(version: 20150813084608) do
 
   create_table "executions", force: :cascade do |t|
     t.integer  "revision_id", limit: 4
-    t.integer  "status",      limit: 4, default: 0
+    t.integer  "status",      limit: 4, default: 1
     t.boolean  "is_dry_run"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
