@@ -6,6 +6,7 @@ class HostExecution < ActiveRecord::Base
   enum status: {pending: 0, in_progress: 1, completed: 2, aborted: 3}
 
   validates :execution, presence: true
+  validates :host, presence: true
 
   after_commit :update_execution_status
 
