@@ -11,8 +11,4 @@ class Execution < ActiveRecord::Base
   def queue
     ExecutionWorker.perform_async(self.id)
   end
-
-  def abort
-    ExecutionAbortWorker.perform_async(self.id)
-  end
 end
