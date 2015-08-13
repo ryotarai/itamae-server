@@ -13,11 +13,7 @@ module Backend
     end
 
     def kick(execution)
-      api(:put, "/v1/event/fire/#{event_name}", execution.id.to_s)
-    end
-
-    def abort(execution)
-      api(:put, "/v1/event/fire/#{abort_event_name}", execution.id.to_s)
+      api(:put, "/v1/event/fire/#{event_name}", {"execution_id" => execution.id.to_s}.to_json)
     end
 
     private
@@ -41,10 +37,6 @@ module Backend
 
     def event_name
       fetch_env('CONSUL_EVENT', 'itamae')
-    end
-
-    def abort_event_name
-      fetch_env('CONSUL_ABORT_EVENT', 'itamae-abort')
     end
 
     def configure
