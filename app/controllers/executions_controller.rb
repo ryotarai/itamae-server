@@ -29,6 +29,8 @@ class ExecutionsController < ApplicationController
 
     respond_to do |format|
       if @execution.save
+        @execution.queue if params[:execute_now]
+
         format.html { redirect_to @execution, notice: 'Execution was successfully created.' }
         format.json { render :show, status: :created, location: @execution }
       else

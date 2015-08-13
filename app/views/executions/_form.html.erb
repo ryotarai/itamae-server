@@ -19,6 +19,10 @@
     <%= f.label :is_dry_run %><br>
     <%= f.check_box :is_dry_run %>
   </div>
+  <div class="field">
+    <%= label_tag :execute_now %><br>
+    <%= check_box_tag :execute_now, true, true %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
