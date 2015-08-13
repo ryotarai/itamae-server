@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150618083411) do
+ActiveRecord::Schema.define(version: 20150813015630) do
 
   create_table "executions", force: :cascade do |t|
     t.integer  "revision_id", limit: 4
     t.integer  "status",      limit: 4, default: 0
-    t.boolean  "is_dry_run",  limit: 1
+    t.boolean  "is_dry_run"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
   end
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(version: 20150618083411) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "key",         limit: 255
+    t.string   "value",       limit: 255
+    t.integer  "target_id",   limit: 4
+    t.string   "target_type", limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "tags", ["target_type", "target_id"], name: "index_tags_on_target_type_and_target_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",      limit: 255

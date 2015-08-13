@@ -2,6 +2,7 @@ require 'storage'
 
 class Revision < ActiveRecord::Base
   has_many :executions, dependent: :destroy
+  has_many :tags, as: :target
 
   validates :name, presence: true, uniqueness: true
 
