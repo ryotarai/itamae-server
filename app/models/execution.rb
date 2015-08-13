@@ -6,8 +6,6 @@ class Execution < ActiveRecord::Base
 
   validates :revision, presence: true
 
-  after_commit :queue, on: :create
-
   def queue
     ExecutionWorker.perform_async(self.id)
   end
