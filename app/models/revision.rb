@@ -6,6 +6,11 @@ class Revision < ActiveRecord::Base
 
   after_destroy :delete_file
 
+  def active?
+    activation = Activation.last
+    activation && activation.revision == self
+  end
+
   def store_file(path)
     Storage.current.store_file(file_key, path)
   end
