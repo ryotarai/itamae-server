@@ -13,6 +13,10 @@ class ExecutionWorker
 
     execution.in_progress!
 
+    Backend.current.hosts.each do |host|
+      execution.host_executions.create(status: :pending, host: host)
+    end
+    
     Backend.current.kick(execution)
   rescue => err
     Rails.logger.error "aborted: #{err.inspect}\n(backtrace)\n#{err.backtrace.join("\n")}"
