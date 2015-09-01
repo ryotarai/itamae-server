@@ -1,6 +1,6 @@
 class HostExecutionsController < ApplicationController
-  protect_from_forgery except: [:append_log, :create, :update]
-  before_action :set_host_execution, only: [:show, :edit, :update, :destroy, :append_log]
+  protect_from_forgery except: [:log, :create, :update]
+  before_action :set_host_execution, only: [:show, :edit, :update, :destroy, :log]
 
   # GET /host_executions
   # GET /host_executions.json
@@ -60,9 +60,9 @@ class HostExecutionsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /host_executions/1/append_log
-  # PATCH/PUT /host_executions/1/append_log.json
-  def append_log
+  # PUT /host_executions/1/log
+  # PUT /host_executions/1/log.json
+  def log
     @host_execution.append_log(request.body.string)
 
     respond_to do |format|
