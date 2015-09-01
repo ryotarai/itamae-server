@@ -12,6 +12,14 @@ class Execution < ActiveRecord::Base
     ExecutionWorker.perform_async(self.id)
   end
 
+  def dry_run?
+    self.is_dry_run
+  end
+
+  def actual_run?
+    !dry_run?
+  end
+
   def validate_revision_is_active
     if self.actual_run? && !self.revision.active?
       errors.add(:revision, "Revision should be active on actual run")
