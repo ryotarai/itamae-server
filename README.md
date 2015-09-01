@@ -10,6 +10,27 @@ $ vim .env
 $ bin/rails s
 ```
 
+## Playground
+
+```
+$ cd playground
+$ vagrant up
+$ ./start-consul-server
+==> WARNING: BootstrapExpect Mode is specified as 1; this is the same as Bootstrap mode.
+==> WARNING: Bootstrap mode enabled! Do not enable unless necessary
+==> WARNING: It is highly recommended to set GOMAXPROCS higher than 1
+==> Starting Consul agent...
+==> Starting Consul agent RPC...
+==> Consul agent running!
+         Node name: 'vagrant-ubuntu-trusty-64'
+        Datacenter: 'dc1'
+            Server: true (bootstrap: true)
+       Client Addr: 0.0.0.0 (HTTP: 8500, HTTPS: -1, DNS: 8600, RPC: 8400)
+      Cluster Addr: 10.0.2.15 (LAN: 8301, WAN: 8302)
+    Gossip encrypt: false, RPC-TLS: false, TLS-Incoming: false
+             Atlas: <disabled>
+```
+
 ## Configuration
 
 ### Authentication
@@ -62,4 +83,3 @@ S3_BUCKET=your-s3-bucket
 S3_ROOT_DIRECTORY=itamae-server
 STORAGE_TYPE=s3
 ```
-
