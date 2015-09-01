@@ -64,16 +64,6 @@ class ExecutionsController < ApplicationController
     end
   end
 
-  # DELETE /executions/1/abort
-  # DELETE /executions/1/abort.json
-  def abort
-    @execution.abort
-    respond_to do |format|
-      format.html { redirect_to @execution, notice: 'Execution was successfully aborted.' }
-      format.json { render :show, status: :ok, location: @execution }
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_execution

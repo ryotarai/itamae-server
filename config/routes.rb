@@ -8,9 +8,6 @@ Rails.application.routes.draw do
   end
   resources :executions do
     resources :host_executions, only: [:index]
-    member do
-      delete 'abort'
-    end
   end
   resources :revisions
   post 'hooks/github' => 'hooks#github'
