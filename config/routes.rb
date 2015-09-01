@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   resources :executions do
     resources :host_executions, only: [:index]
   end
-  resources :revisions
+
+  resources :revisions do
+    resources :executions
+  end
+
   post 'hooks/github' => 'hooks#github'
   root 'revisions#index'
 
