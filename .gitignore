@@ -17,3 +17,5 @@
 /tmp
 
 /dump.rdb
+/.env
+.vagrant
