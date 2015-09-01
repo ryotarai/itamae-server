@@ -10,7 +10,7 @@ module Backend
       value = ENV[key] || default
 
       unless value
-        raise Error, "'#{key}' is not set."
+        raise "'#{key}' is not set."
       end
 
       value
