@@ -82,6 +82,6 @@ class ExecutionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def execution_params
-      params.require(:execution).permit(:revision_id, :is_dry_run)
+      params.require(:execution).permit(:revision_id, :is_dry_run, :status)
     end
 end
