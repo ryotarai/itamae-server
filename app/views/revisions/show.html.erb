@@ -2,13 +2,28 @@
 
 <h2>Executions</h2>
 
-<%= link_to "New Execution", new_execution_path(revision_id: @revision.id) %>
+<p>
+<% if @revision.active? %>
+  <%= link_to "Dry Run", revision_executions_path(@revision, execution: {is_dry_run: true}, execute_now: true), method: :post, class: "btn btn-primary" %>
+  <%= link_to "Actual Run", revision_executions_path(@revision, execution: {is_dry_run: false}, execute_now: true), method: :post, class: "btn btn-warning" %>
+<% else %>
+  <%= link_to "Dry Run", revision_executions_path(@revision, execution: {is_dry_run: true}, execute_now: true), method: :post, class: "btn btn-primary" %>
+<% end %>
+</p>
 
-<ul>
-  <% @revision.executions.each do |execution| %>
-    <li><%= link_to "Execution ##{execution.id} (#{execution.status} / #{execution.is_dry_run ? "dry run" : "actual run"})", execution %></li>
+<table class="table">
+  <% @revision.executions.reverse_each do |execution| %>
+    <tr>
+      <td><%= link_to "Execution ##{execution.id}", execution %></td>
+      <td><%= status_label(execution.status).html_safe %></td>
+
+      <%- if execution.is_dry_run -%>
+        <td><span class="label label-default">dry run</span></td>
+      <%- else -%>
+        <td><span class="label label-primary">actual run</span></td>
+      <%- end -%>
+
+      <td><%= execution.created_at %></td>
+    </tr>
   <% end %>
-</ul>
-
-<%= link_to 'Edit', edit_revision_path(@revision) %> |
-<%= link_to 'Back', revisions_path %>
+</table>
