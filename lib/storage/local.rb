@@ -25,7 +25,10 @@ module Storage
     end
 
     def read_and_join_under(prefix)
-      absolute_path(prefix).children.sort do |a, b|
+      path = absolute_path(prefix)
+      return "" unless path.exist?
+
+      path.children.sort do |a, b|
         a.to_s <=> b.to_s
       end.map do |f|
         f.read
