@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813084608) do
+ActiveRecord::Schema.define(version: 20150820081823) do
+
+  create_table "activations", force: :cascade do |t|
+    t.integer  "revision_id", limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "activations", ["revision_id"], name: "index_activations_on_revision_id", using: :btree
 
   create_table "executions", force: :cascade do |t|
     t.integer  "revision_id", limit: 4
@@ -55,6 +63,7 @@ ActiveRecord::Schema.define(version: 20150813084608) do
     t.datetime "updated_at",             null: false
   end
 
+  add_foreign_key "activations", "revisions"
   add_foreign_key "executions", "revisions"
   add_foreign_key "host_executions", "executions"
 end
