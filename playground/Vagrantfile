@@ -1,0 +1,27 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "ubuntu/trusty64"
+
+  config.vm.network "private_network", type: "dhcp"
+
+  itamae_client = Pathname.new("itamae-client")
+  if itamae_client.exist?
+    config.vm.synced_folder itamae_client.readlink, "/app/itamae-client"
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+apt-add-repository ppa:brightbox/ruby-ng
+apt-get update
+apt-get -y install ruby2.2 ruby2.2-dev unzip git
+which bundle || gem install bundler
+if [ ! -e /usr/local/bin/consul ]; then
+  (cd /tmp
+  wget -O consul.zip https://dl.bintray.com/mitchellh/consul/0.5.2_linux_amd64.zip
+  unzip consul.zip
+  mv consul /usr/local/bin)
+  chmod +x /usr/local/bin/consul
+fi
+  SHELL
+end

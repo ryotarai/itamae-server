@@ -1,0 +1,2 @@
+#!/bin/sh
+vagrant ssh default -c 'rm -rf /tmp/consul && consul agent -server -config-dir /vagrant/consul.d -data-dir /tmp/consul'
