@@ -13,7 +13,7 @@ module Backend
     end
 
     def kick(execution)
-      api(:put, "/v1/event/fire/#{event_name}", {"execution_id" => execution.id.to_s}.to_json)
+      api(:put, "/v1/event/fire/#{event_name}?service=#{service_name}", {"execution_id" => execution.id.to_s}.to_json)
     end
 
     private
