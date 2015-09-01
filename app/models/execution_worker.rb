@@ -6,8 +6,8 @@ class ExecutionWorker
   def perform(execution_id)
     execution = Execution.find(execution_id)
 
-    unless execution.pending?
-      Rails.logger.info "#{execution} is not pending. skip"
+    unless execution.in_progress?
+      Rails.logger.info "#{execution} is not in progress. skip"
       return
     end
 
