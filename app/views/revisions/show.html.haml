@@ -1,0 +1,10 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @revision.name
+%p
+  %strong Url:
+  = @revision.url
+= link_to 'Edit', edit_revision_path(@revision)
+|
+= link_to 'Back', revisions_path

@@ -1,0 +1,18 @@
+%p#notice= notice
+%h1 Listing Revisions
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Url
+      %th{:colspan => "3"}
+  %tbody
+    - @revisions.each do |revision|
+      %tr
+        %td= revision.name
+        %td= revision.url
+        %td= link_to 'Show', revision
+        %td= link_to 'Edit', edit_revision_path(revision)
+        %td= link_to 'Destroy', revision, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Revision', new_revision_path
