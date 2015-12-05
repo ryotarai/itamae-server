@@ -1,0 +1,13 @@
+= form_for @execution do |f|
+  - if @execution.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@execution.errors.count, "error")} prohibited this execution from being saved:"
+      %ul
+        - @execution.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :revision
+    = f.text_field :revision
+  .actions
+    = f.submit 'Save'

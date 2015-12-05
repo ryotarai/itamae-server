@@ -2,7 +2,7 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title ItamaeServer
+    %title Itamae Server
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     %link{:crossorigin => "anonymous", :href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css", :integrity => "sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7", :rel => "stylesheet"}/
     = csrf_meta_tags
@@ -21,11 +21,9 @@
             %li.active
               %a{:href => "#"} Home
             %li
-              %a{:href => "#"} Revisions
-        / /.nav-collapse
+              %a{:href => revisions_path} Revisions
     .container
       = yield
-    / /.container
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"}
     %script{:crossorigin => "anonymous", :integrity => "sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS", :src => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"}

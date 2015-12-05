@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Revision:
+  = @execution.revision
+
+= link_to 'Edit', edit_execution_path(@execution)
+\|
+= link_to 'Back', executions_path
