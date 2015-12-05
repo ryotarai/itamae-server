@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151205154535) do
+ActiveRecord::Schema.define(version: 20151205163941) do
+
+  create_table "executions", force: :cascade do |t|
+    t.integer  "revision_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "executions", ["revision_id"], name: "index_executions_on_revision_id"
 
   create_table "revisions", force: :cascade do |t|
     t.string   "name"
