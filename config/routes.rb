@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :hosts
   resources :executions
   resources :revisions
 

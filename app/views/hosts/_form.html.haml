@@ -1,0 +1,13 @@
+= form_for @host do |f|
+  - if @host.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@host.errors.count, "error")} prohibited this host from being saved:"
+      %ul
+        - @host.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .actions
+    = f.submit 'Save'
