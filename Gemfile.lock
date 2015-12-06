@@ -36,6 +36,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    ansi (1.5.0)
     arel (6.0.3)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -108,6 +109,7 @@ GEM
       haml (>= 4.0.6, < 5.0)
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
+    hashie (3.4.3)
     hitimes (1.2.3)
     html2haml (2.0.0)
       erubis (~> 2.7.0)
@@ -115,6 +117,12 @@ GEM
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
     i18n (0.7.0)
+    itamae (1.6.3)
+      ansi
+      hashie
+      schash (~> 0.1.0)
+      specinfra (>= 2.37.0, < 3.0.0)
+      thor
     jbuilder (2.3.2)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -132,9 +140,15 @@ GEM
     minitest (5.8.3)
     multi_json (1.11.2)
     nenv (0.2.0)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.9.2)
+    net-telnet (0.1.1)
     nokogiri (1.6.7)
       mini_portile2 (~> 2.0.0.rc2)
     rack (1.6.4)
+    rack-protection (1.5.3)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.5)
@@ -193,16 +207,27 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    schash (0.1.2)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     sexp_processor (4.6.0)
+    sfl (2.2)
     sidekiq (3.3.4)
       celluloid (>= 0.16.0)
       connection_pool (>= 2.1.1)
       json
       redis (>= 3.0.6)
       redis-namespace (>= 1.3.1)
+    sinatra (1.4.6)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (>= 1.3, < 3)
+    specinfra (2.44.2)
+      net-scp
+      net-ssh (~> 2.7)
+      net-telnet
+      sfl
     spring (1.5.0)
     sprockets (3.5.0)
       concurrent-ruby (~> 1.0)
@@ -238,6 +263,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   figaro
   haml-rails
+  itamae
   jbuilder (~> 2.0)
   jquery-rails
   rails (= 4.2.5)
@@ -245,6 +271,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   sidekiq
+  sinatra
   spring
   sqlite3
   turbolinks
