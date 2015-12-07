@@ -9,9 +9,9 @@
     %tr
       %th Execution
   %tbody
-    - @host.executions.reverse_order.each do |execution|
+    - @host.host_executions.reverse_order.each do |host_execution|
       %tr
-        %td= link_to(execution.created_at.to_s, execution_path(execution))
+        %td= link_to(host_execution.created_at.to_s, host_execution_path(host_execution))
 
 = link_to 'Edit', edit_host_path(@host)
 \|

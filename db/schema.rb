@@ -11,19 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207104325) do
+ActiveRecord::Schema.define(version: 20151207104708) do
 
   create_table "events", force: :cascade do |t|
-    t.integer  "execution_id", limit: 4
-    t.integer  "host_id",      limit: 4
-    t.string   "event_type",   limit: 255
-    t.text     "payload",      limit: 65535
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "event_type",        limit: 255
+    t.text     "payload",           limit: 65535
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "host_execution_id", limit: 4
   end
 
-  add_index "events", ["execution_id"], name: "index_events_on_execution_id", using: :btree
-  add_index "events", ["host_id"], name: "index_events_on_host_id", using: :btree
+  add_index "events", ["host_execution_id"], name: "index_events_on_host_execution_id", using: :btree
 
   create_table "executions", force: :cascade do |t|
     t.integer  "revision_id", limit: 4
@@ -58,8 +56,7 @@ ActiveRecord::Schema.define(version: 20151207104325) do
     t.datetime "updated_at",             null: false
   end
 
-  add_foreign_key "events", "executions"
-  add_foreign_key "events", "hosts"
+  add_foreign_key "events", "host_executions"
   add_foreign_key "executions", "revisions"
   add_foreign_key "host_executions", "executions"
   add_foreign_key "host_executions", "hosts"

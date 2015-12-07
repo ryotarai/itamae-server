@@ -1,9 +1,7 @@
 class Event < ActiveRecord::Base
   serialize :payload, JSON
-  belongs_to :execution
-  belongs_to :host
+  belongs_to :host_execution
 
   validates :event_type, presence: true
-  validates :execution, presence: true
-  validates :host, presence: true
+  validates :host_execution, presence: true
 end

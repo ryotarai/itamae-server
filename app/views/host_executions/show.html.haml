@@ -1,0 +1,33 @@
+%p#notice= notice
+
+%p
+  %b Host:
+  = link_to(@host_execution.host.name, @host_execution.host)
+%p
+  %b Execution:
+  = link_to(@host_execution.execution.created_at, @host_execution.execution)
+
+%table.table
+  %thead
+    %tr
+      %th Resource
+      %th Event
+      %th Detail
+  %tbody
+    - recipe = nil
+    - resource = nil
+    - @host_execution.events.each do |event|
+      - case event.event_type
+      - when 'recipe_started'
+        - recipe = event.payload
+      - when 'resource_started'
+        - resource = event.payload
+      - when 'resource_updated', 'attribute_changed', 'file_content_changed'
+        %tr
+          %td{title: recipe && recipe["path"]}= "#{resource["resource_type"]}[#{resource["resource_name"]}]"
+          %td= event.event_type
+          %td= preserve(event_description_html(event).html_safe)
+
+= link_to 'Edit', edit_host_execution_path(@host_execution)
+\|
+= link_to 'Back', host_executions_path

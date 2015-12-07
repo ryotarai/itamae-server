@@ -13,8 +13,10 @@ class EventsController < ApplicationController
     end
 
     host = Host.find_or_create_by(name: host)
+    host_execution = HostExecution.find_or_create_by(host: host, execution: execution)
+
     events = events.map do |event|
-      Event.new(host: host, execution: execution, event_type: event['type'], payload: event['payload'])
+      Event.new(host_execution: host_execution, event_type: event['type'], payload: event['payload'])
     end
     result = Event.import(events, validate: true)
 

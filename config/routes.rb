@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :host_executions
   resources :hosts
   resources :executions do
     resources :events, only: [] do
