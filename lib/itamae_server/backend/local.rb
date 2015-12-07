@@ -9,7 +9,7 @@ module ItamaeServer
       def execute(execution)
         Dir.mktmpdir do |dir|
           Dir.chdir(dir) do
-            generate_config
+            generate_config(execution)
             url = execution.revision.url
             system_or_abort "curl", "-L", "-o", "dest", url
             system_or_abort "tar", "xf", "dest"
@@ -24,11 +24,12 @@ module ItamaeServer
         end
       end
 
-      private def generate_config
+      private def generate_config(execution)
         config = {
           'reporters' => [
             {
               'type' => 'itamae_server',
+              'url' => Rails.application.routes.url_helpers.execution_events_url(execution),
             },
           ],
         }
