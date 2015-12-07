@@ -11,21 +11,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151205163941) do
+ActiveRecord::Schema.define(version: 20151207025829) do
+
+  create_table "events", force: :cascade do |t|
+    t.integer  "execution_id", limit: 4
+    t.integer  "host_id",      limit: 4
+    t.string   "event_type",   limit: 255
+    t.text     "payload",      limit: 65535
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "events", ["execution_id"], name: "index_events_on_execution_id", using: :btree
+  add_index "events", ["host_id"], name: "index_events_on_host_id", using: :btree
 
   create_table "executions", force: :cascade do |t|
-    t.integer  "revision_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "revision_id", limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
-  add_index "executions", ["revision_id"], name: "index_executions_on_revision_id"
+  add_index "executions", ["revision_id"], name: "index_executions_on_revision_id", using: :btree
+
+  create_table "hosts", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "hosts", ["name"], name: "index_hosts_on_name", using: :btree
 
   create_table "revisions", force: :cascade do |t|
-    t.string   "name"
-    t.string   "url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       limit: 255
+    t.string   "url",        limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
+  add_foreign_key "events", "executions"
+  add_foreign_key "events", "hosts"
+  add_foreign_key "executions", "revisions"
 end

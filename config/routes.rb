@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   resources :hosts
   resources :executions do
-    resources :events, only: [:create]
+    resources :events, only: [] do
+      collection do
+        post 'bulk' => 'events#bulk_create'
+      end
+    end
   end
   resources :revisions
 
