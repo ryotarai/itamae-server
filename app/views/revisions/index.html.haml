@@ -5,11 +5,12 @@
     %tr
       %th Name
       %th Url
-      %th{:colspan => "2"}
+      %th Created
   %tbody
-    - @revisions.each do |revision|
+    - @revisions.reverse_order.each do |revision|
       %tr
         %td= link_to revision.name, revision
         %td= revision.url
+        %td= revision.created_at
 
 = link_to 'New Revision', new_revision_path
