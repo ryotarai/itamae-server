@@ -29,7 +29,7 @@ module ItamaeServer
           'reporters' => [
             {
               'type' => 'itamae_server',
-              'url' => Rails.application.routes.url_helpers.execution_events_url(execution),
+              'url' => Rails.application.routes.url_helpers.bulk_execution_events_url(execution),
             },
           ],
         }

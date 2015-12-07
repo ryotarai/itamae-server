@@ -4,4 +4,6 @@ class Event < ActiveRecord::Base
   belongs_to :host
 
   validates :event_type, presence: true
+  validates :execution, presence: true
+  validates :host, presence: true
 end
