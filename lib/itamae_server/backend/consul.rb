@@ -25,7 +25,7 @@ module ItamaeServer
       private def payload(execution)
         result = {
           "recipe_url" => execution.revision.url,
-          "server_url" => Rails.application.routes.url_helpers.bulk_execution_events_url(execution),
+          "itamae_server_url" => Rails.application.routes.url_helpers.bulk_execution_events_url(execution),
         }.to_json
 
         if secret_key
