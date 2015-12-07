@@ -4,6 +4,10 @@ module ItamaeServer
       def execute(execution)
         raise NotImplementedError
       end
+
+      def hosts
+        raise NotImplementedError
+      end
     end
   end
 end

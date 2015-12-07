@@ -18,6 +18,10 @@ module ItamaeServer
         end
       end
 
+      def hosts
+        [Socket.gethostname]
+      end
+
       private def system_or_abort(*args)
         unless system(*args)
           raise "#{args} failed"
