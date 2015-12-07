@@ -1,14 +1,16 @@
 Rails.application.routes.draw do
   resources :host_executions
   resources :hosts
-  resources :executions do
+  resources :executions, except: [:new] do
     resources :events, only: [] do
       collection do
         post 'bulk' => 'events#bulk_create'
       end
     end
   end
-  resources :revisions
+  resources :revisions do
+    resources :executions, only: [:new]
+  end
 
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
@@ -16,7 +18,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'revisions#index'
+  root 'hosts#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

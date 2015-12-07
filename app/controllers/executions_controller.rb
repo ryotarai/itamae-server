@@ -12,9 +12,9 @@ class ExecutionsController < ApplicationController
   def show
   end
 
-  # GET /executions/new
+  # GET /revisions/1/executions/new
   def new
-    @execution = Execution.new
+    @execution = Execution.new(revision: Revision.find(params[:revision_id]))
   end
 
   # GET /executions/1/edit

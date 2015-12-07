@@ -15,6 +15,7 @@
       %tr
         %td= link_to(execution.created_at.to_s, execution_path(execution))
 
+= link_to 'Execute', new_revision_execution_path(@revision), class: 'btn btn-primary'
 = link_to 'Edit', edit_revision_path(@revision)
 |
 = link_to 'Back', revisions_path

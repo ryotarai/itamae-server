@@ -6,9 +6,7 @@
         - @execution.errors.full_messages.each do |msg|
           %li= msg
 
-  .form-group
-    = f.label :revision_id
-    = f.text_field :revision_id, class: 'form-control'
+  = f.hidden_field :revision_id
   .form-group
     = f.label :dry_run
     = f.check_box :dry_run, class: 'form-control'
