@@ -6,11 +6,10 @@
         - @execution.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
+  .form-group
     = f.label :revision_id
-    = f.text_field :revision_id
-  .field
+    = f.text_field :revision_id, class: 'form-control'
+  .form-group
     = f.label :dry_run
-    = f.check_box :dry_run
-  .actions
-    = f.submit 'Save'
+    = f.check_box :dry_run, class: 'form-control'
+  = f.submit 'Save', class: 'btn btn-default'

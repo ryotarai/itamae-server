@@ -7,13 +7,10 @@
       %ul
         - @revision.errors.full_messages.each do |message|
           %li= message
-  .field
+  .form-group
     = f.label :name
-    %br/
-    = f.text_field :name
-  .field
+    = f.text_field :name, class: 'form-control'
+  .form-group
     = f.label :url
-    %br/
-    = f.text_field :url
-  .actions
-    = f.submit
+    = f.text_field :url, class: 'form-control'
+  = f.submit 'Save', class: 'btn btn-default'
