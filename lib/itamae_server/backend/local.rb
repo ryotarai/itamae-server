@@ -30,6 +30,7 @@ module ItamaeServer
 
       private def generate_config(execution)
         config = {
+          'dry_run' => execution.dry_run,
           'handlers' => [
             {
               'type' => 'itamae_server',
