@@ -1,5 +1,6 @@
 class Execution < ActiveRecord::Base
   belongs_to :revision
+  has_many :events
   validates :revision, presence: true
   after_create :enqueue_job
 
