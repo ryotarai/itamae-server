@@ -30,7 +30,7 @@ module ItamaeServer
 
       private def generate_config(execution)
         config = {
-          'reporters' => [
+          'handlers' => [
             {
               'type' => 'itamae_server',
               'url' => Rails.application.routes.url_helpers.bulk_execution_events_url(execution),
