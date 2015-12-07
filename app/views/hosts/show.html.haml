@@ -4,6 +4,15 @@
   %b Name:
   = @host.name
 
+%table.table
+  %thead
+    %tr
+      %th Execution
+  %tbody
+    - @host.executions.reverse_order.each do |execution|
+      %tr
+        %td= link_to(execution.created_at.to_s, execution_path(execution))
+
 = link_to 'Edit', edit_host_path(@host)
 \|
 = link_to 'Back', hosts_path

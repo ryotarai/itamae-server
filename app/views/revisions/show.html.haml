@@ -5,6 +5,16 @@
 %p
   %strong Url:
   = @revision.url
+
+%table.table
+  %thead
+    %tr
+      %th Execution
+  %tbody
+    - @revision.executions.reverse_order.each do |execution|
+      %tr
+        %td= link_to(execution.created_at.to_s, execution_path(execution))
+
 = link_to 'Edit', edit_revision_path(@revision)
 |
 = link_to 'Back', revisions_path
