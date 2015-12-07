@@ -4,7 +4,7 @@ class HostsController < ApplicationController
   # GET /hosts
   # GET /hosts.json
   def index
-    @hosts = Host.all
+    @hosts = Host.where(name: ItamaeServer::Backend.instance.hosts)
   end
 
   # GET /hosts/1
