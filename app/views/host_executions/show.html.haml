@@ -19,6 +19,4 @@
           - group.events.each do |event|
             = preserve(event_description_html(event).html_safe)
 
-= link_to 'Edit', edit_host_execution_path(@host_execution)
-\|
 = link_to 'Back', host_executions_path

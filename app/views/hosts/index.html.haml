@@ -11,9 +11,6 @@
     - @hosts.each do |host|
       %tr
         %td= link_to host.name, host
-        %td= link_to 'Edit', edit_host_path(host)
-        %td= link_to 'Destroy', host, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New Host', new_host_path
