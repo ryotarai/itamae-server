@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207104708) do
+ActiveRecord::Schema.define(version: 20151207111246) do
 
   create_table "events", force: :cascade do |t|
     t.string   "event_type",        limit: 255
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20151207104708) do
     t.integer  "revision_id", limit: 4
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.boolean  "dry_run"
   end
 
   add_index "executions", ["revision_id"], name: "index_executions_on_revision_id", using: :btree
