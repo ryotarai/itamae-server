@@ -14,7 +14,7 @@
         %h4.panel-title
           %a{"aria-controls" => "collapse#{index}", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapse#{index}", :role => "button"}
             = "#{group.action['action']} #{group.resource['resource_type']}[#{group.resource['resource_name']}]"
-      .panel-collapse.collapse.in{"aria-labelledby" => "heading#{index}", :role => "tabpanel", :id => "collapse#{index}"}
+      .panel-collapse.collapse{"aria-labelledby" => "heading#{index}", :role => "tabpanel", :id => "collapse#{index}"}
         .panel-body
           - group.events.each do |event|
             = preserve(event_description_html(event).html_safe)
