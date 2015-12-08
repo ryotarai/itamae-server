@@ -8,9 +8,13 @@
   %thead
     %tr
       %th Host
+      %th Updated Resources
   %tbody
-    - @execution.host_executions.each do |host_execution|
+    - # TODO: Fix N+1
+    - @execution.host_executions.sort_by {|he| he.updated_resource_count }.each do |host_execution|
       %tr
         %td= link_to(host_execution.host.name, host_execution)
+        %td
+          %span.badge= host_execution.updated_resource_count
 
 = link_to 'Back', executions_path
