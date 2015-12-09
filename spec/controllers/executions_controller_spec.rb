@@ -18,10 +18,10 @@ require 'rails_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-RSpec.describe PlansController, type: :controller do
+RSpec.describe ExecutionsController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
-  # Plan. As you add validations to Plan, be sure to
+  # Execution. As you add validations to Execution, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -33,68 +33,68 @@ RSpec.describe PlansController, type: :controller do
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # PlansController. Be sure to keep this updated too.
+  # ExecutionsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "assigns all plans as @plans" do
-      plan = Plan.create! valid_attributes
+    it "assigns all executions as @executions" do
+      execution = Execution.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:plans)).to eq([plan])
+      expect(assigns(:executions)).to eq([execution])
     end
   end
 
   describe "GET #show" do
-    it "assigns the requested plan as @plan" do
-      plan = Plan.create! valid_attributes
-      get :show, {:id => plan.to_param}, valid_session
-      expect(assigns(:plan)).to eq(plan)
+    it "assigns the requested execution as @execution" do
+      execution = Execution.create! valid_attributes
+      get :show, {:id => execution.to_param}, valid_session
+      expect(assigns(:execution)).to eq(execution)
     end
   end
 
   describe "GET #new" do
-    it "assigns a new plan as @plan" do
+    it "assigns a new execution as @execution" do
       get :new, {}, valid_session
-      expect(assigns(:plan)).to be_a_new(Plan)
+      expect(assigns(:execution)).to be_a_new(Execution)
     end
   end
 
   describe "GET #edit" do
-    it "assigns the requested plan as @plan" do
-      plan = Plan.create! valid_attributes
-      get :edit, {:id => plan.to_param}, valid_session
-      expect(assigns(:plan)).to eq(plan)
+    it "assigns the requested execution as @execution" do
+      execution = Execution.create! valid_attributes
+      get :edit, {:id => execution.to_param}, valid_session
+      expect(assigns(:execution)).to eq(execution)
     end
   end
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new Plan" do
+      it "creates a new Execution" do
         expect {
-          post :create, {:plan => valid_attributes}, valid_session
-        }.to change(Plan, :count).by(1)
+          post :create, {:execution => valid_attributes}, valid_session
+        }.to change(Execution, :count).by(1)
       end
 
-      it "assigns a newly created plan as @plan" do
-        post :create, {:plan => valid_attributes}, valid_session
-        expect(assigns(:plan)).to be_a(Plan)
-        expect(assigns(:plan)).to be_persisted
+      it "assigns a newly created execution as @execution" do
+        post :create, {:execution => valid_attributes}, valid_session
+        expect(assigns(:execution)).to be_a(Execution)
+        expect(assigns(:execution)).to be_persisted
       end
 
-      it "redirects to the created plan" do
-        post :create, {:plan => valid_attributes}, valid_session
-        expect(response).to redirect_to(Plan.last)
+      it "redirects to the created execution" do
+        post :create, {:execution => valid_attributes}, valid_session
+        expect(response).to redirect_to(Execution.last)
       end
     end
 
     context "with invalid params" do
-      it "assigns a newly created but unsaved plan as @plan" do
-        post :create, {:plan => invalid_attributes}, valid_session
-        expect(assigns(:plan)).to be_a_new(Plan)
+      it "assigns a newly created but unsaved execution as @execution" do
+        post :create, {:execution => invalid_attributes}, valid_session
+        expect(assigns(:execution)).to be_a_new(Execution)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:plan => invalid_attributes}, valid_session
+        post :create, {:execution => invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -106,53 +106,53 @@ RSpec.describe PlansController, type: :controller do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested plan" do
-        plan = Plan.create! valid_attributes
-        put :update, {:id => plan.to_param, :plan => new_attributes}, valid_session
-        plan.reload
+      it "updates the requested execution" do
+        execution = Execution.create! valid_attributes
+        put :update, {:id => execution.to_param, :execution => new_attributes}, valid_session
+        execution.reload
         skip("Add assertions for updated state")
       end
 
-      it "assigns the requested plan as @plan" do
-        plan = Plan.create! valid_attributes
-        put :update, {:id => plan.to_param, :plan => valid_attributes}, valid_session
-        expect(assigns(:plan)).to eq(plan)
+      it "assigns the requested execution as @execution" do
+        execution = Execution.create! valid_attributes
+        put :update, {:id => execution.to_param, :execution => valid_attributes}, valid_session
+        expect(assigns(:execution)).to eq(execution)
       end
 
-      it "redirects to the plan" do
-        plan = Plan.create! valid_attributes
-        put :update, {:id => plan.to_param, :plan => valid_attributes}, valid_session
-        expect(response).to redirect_to(plan)
+      it "redirects to the execution" do
+        execution = Execution.create! valid_attributes
+        put :update, {:id => execution.to_param, :execution => valid_attributes}, valid_session
+        expect(response).to redirect_to(execution)
       end
     end
 
     context "with invalid params" do
-      it "assigns the plan as @plan" do
-        plan = Plan.create! valid_attributes
-        put :update, {:id => plan.to_param, :plan => invalid_attributes}, valid_session
-        expect(assigns(:plan)).to eq(plan)
+      it "assigns the execution as @execution" do
+        execution = Execution.create! valid_attributes
+        put :update, {:id => execution.to_param, :execution => invalid_attributes}, valid_session
+        expect(assigns(:execution)).to eq(execution)
       end
 
       it "re-renders the 'edit' template" do
-        plan = Plan.create! valid_attributes
-        put :update, {:id => plan.to_param, :plan => invalid_attributes}, valid_session
+        execution = Execution.create! valid_attributes
+        put :update, {:id => execution.to_param, :execution => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
     end
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested plan" do
-      plan = Plan.create! valid_attributes
+    it "destroys the requested execution" do
+      execution = Execution.create! valid_attributes
       expect {
-        delete :destroy, {:id => plan.to_param}, valid_session
-      }.to change(Plan, :count).by(-1)
+        delete :destroy, {:id => execution.to_param}, valid_session
+      }.to change(Execution, :count).by(-1)
     end
 
-    it "redirects to the plans list" do
-      plan = Plan.create! valid_attributes
-      delete :destroy, {:id => plan.to_param}, valid_session
-      expect(response).to redirect_to(plans_url)
+    it "redirects to the executions list" do
+      execution = Execution.create! valid_attributes
+      delete :destroy, {:id => execution.to_param}, valid_session
+      expect(response).to redirect_to(executions_url)
     end
   end
 

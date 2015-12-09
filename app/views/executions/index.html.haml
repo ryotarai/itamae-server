@@ -1,0 +1,17 @@
+%h1 Listing executions
+
+%table.table
+  %thead
+    %tr
+      %th Revision
+      %th
+      %th
+      %th
+
+  %tbody
+    - @executions.each do |execution|
+      %tr
+        %td= execution.revision
+        %td= link_to 'Show', execution
+        %td= link_to 'Destroy', execution, :method => :delete, :data => { :confirm => 'Are you sure?' }
+

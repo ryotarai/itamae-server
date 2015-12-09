@@ -1,0 +1,19 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @revision.name
+%p
+  %strong Url:
+  = @revision.url
+
+%table.table
+  %thead
+    %tr
+      %th Execution
+  %tbody
+    - @revision.executions.reverse_order.each do |execution|
+      %tr
+        %td= link_to(execution.created_at.to_s, execution_path(execution))
+
+= link_to 'Execute', new_revision_execution_path(@revision), class: 'btn btn-primary'
+= link_to 'Back', revisions_path

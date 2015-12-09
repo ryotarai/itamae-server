@@ -1,0 +1,20 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @host.name
+
+%table.table
+  %thead
+    %tr
+      %th 
+      %th Execution
+  %tbody
+    - @host.host_executions.reverse_order.each do |host_execution|
+      %tr
+        %td
+          - if host_execution.execution.dry_run
+            %span.label.label-info Dry Run
+        %td= link_to(host_execution.created_at.to_s, host_execution_path(host_execution))
+
+= link_to 'Back', hosts_path

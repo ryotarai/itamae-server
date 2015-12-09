@@ -23,8 +23,12 @@ RSpec.describe RevisionsController, type: :routing do
       expect(:post => "/revisions").to route_to("revisions#create")
     end
 
-    it "routes to #update" do
+    it "routes to #update via PUT" do
       expect(:put => "/revisions/1").to route_to("revisions#update", :id => "1")
+    end
+
+    it "routes to #update via PATCH" do
+      expect(:patch => "/revisions/1").to route_to("revisions#update", :id => "1")
     end
 
     it "routes to #destroy" do

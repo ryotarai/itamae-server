@@ -18,10 +18,10 @@ require 'rails_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-RSpec.describe LogsController, type: :controller do
+RSpec.describe HostExecutionsController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
-  # Log. As you add validations to Log, be sure to
+  # HostExecution. As you add validations to HostExecution, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -33,68 +33,68 @@ RSpec.describe LogsController, type: :controller do
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # LogsController. Be sure to keep this updated too.
+  # HostExecutionsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "assigns all logs as @logs" do
-      log = Log.create! valid_attributes
+    it "assigns all host_executions as @host_executions" do
+      host_execution = HostExecution.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:logs)).to eq([log])
+      expect(assigns(:host_executions)).to eq([host_execution])
     end
   end
 
   describe "GET #show" do
-    it "assigns the requested log as @log" do
-      log = Log.create! valid_attributes
-      get :show, {:id => log.to_param}, valid_session
-      expect(assigns(:log)).to eq(log)
+    it "assigns the requested host_execution as @host_execution" do
+      host_execution = HostExecution.create! valid_attributes
+      get :show, {:id => host_execution.to_param}, valid_session
+      expect(assigns(:host_execution)).to eq(host_execution)
     end
   end
 
   describe "GET #new" do
-    it "assigns a new log as @log" do
+    it "assigns a new host_execution as @host_execution" do
       get :new, {}, valid_session
-      expect(assigns(:log)).to be_a_new(Log)
+      expect(assigns(:host_execution)).to be_a_new(HostExecution)
     end
   end
 
   describe "GET #edit" do
-    it "assigns the requested log as @log" do
-      log = Log.create! valid_attributes
-      get :edit, {:id => log.to_param}, valid_session
-      expect(assigns(:log)).to eq(log)
+    it "assigns the requested host_execution as @host_execution" do
+      host_execution = HostExecution.create! valid_attributes
+      get :edit, {:id => host_execution.to_param}, valid_session
+      expect(assigns(:host_execution)).to eq(host_execution)
     end
   end
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new Log" do
+      it "creates a new HostExecution" do
         expect {
-          post :create, {:log => valid_attributes}, valid_session
-        }.to change(Log, :count).by(1)
+          post :create, {:host_execution => valid_attributes}, valid_session
+        }.to change(HostExecution, :count).by(1)
       end
 
-      it "assigns a newly created log as @log" do
-        post :create, {:log => valid_attributes}, valid_session
-        expect(assigns(:log)).to be_a(Log)
-        expect(assigns(:log)).to be_persisted
+      it "assigns a newly created host_execution as @host_execution" do
+        post :create, {:host_execution => valid_attributes}, valid_session
+        expect(assigns(:host_execution)).to be_a(HostExecution)
+        expect(assigns(:host_execution)).to be_persisted
       end
 
-      it "redirects to the created log" do
-        post :create, {:log => valid_attributes}, valid_session
-        expect(response).to redirect_to(Log.last)
+      it "redirects to the created host_execution" do
+        post :create, {:host_execution => valid_attributes}, valid_session
+        expect(response).to redirect_to(HostExecution.last)
       end
     end
 
     context "with invalid params" do
-      it "assigns a newly created but unsaved log as @log" do
-        post :create, {:log => invalid_attributes}, valid_session
-        expect(assigns(:log)).to be_a_new(Log)
+      it "assigns a newly created but unsaved host_execution as @host_execution" do
+        post :create, {:host_execution => invalid_attributes}, valid_session
+        expect(assigns(:host_execution)).to be_a_new(HostExecution)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:log => invalid_attributes}, valid_session
+        post :create, {:host_execution => invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -106,53 +106,53 @@ RSpec.describe LogsController, type: :controller do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested log" do
-        log = Log.create! valid_attributes
-        put :update, {:id => log.to_param, :log => new_attributes}, valid_session
-        log.reload
+      it "updates the requested host_execution" do
+        host_execution = HostExecution.create! valid_attributes
+        put :update, {:id => host_execution.to_param, :host_execution => new_attributes}, valid_session
+        host_execution.reload
         skip("Add assertions for updated state")
       end
 
-      it "assigns the requested log as @log" do
-        log = Log.create! valid_attributes
-        put :update, {:id => log.to_param, :log => valid_attributes}, valid_session
-        expect(assigns(:log)).to eq(log)
+      it "assigns the requested host_execution as @host_execution" do
+        host_execution = HostExecution.create! valid_attributes
+        put :update, {:id => host_execution.to_param, :host_execution => valid_attributes}, valid_session
+        expect(assigns(:host_execution)).to eq(host_execution)
       end
 
-      it "redirects to the log" do
-        log = Log.create! valid_attributes
-        put :update, {:id => log.to_param, :log => valid_attributes}, valid_session
-        expect(response).to redirect_to(log)
+      it "redirects to the host_execution" do
+        host_execution = HostExecution.create! valid_attributes
+        put :update, {:id => host_execution.to_param, :host_execution => valid_attributes}, valid_session
+        expect(response).to redirect_to(host_execution)
       end
     end
 
     context "with invalid params" do
-      it "assigns the log as @log" do
-        log = Log.create! valid_attributes
-        put :update, {:id => log.to_param, :log => invalid_attributes}, valid_session
-        expect(assigns(:log)).to eq(log)
+      it "assigns the host_execution as @host_execution" do
+        host_execution = HostExecution.create! valid_attributes
+        put :update, {:id => host_execution.to_param, :host_execution => invalid_attributes}, valid_session
+        expect(assigns(:host_execution)).to eq(host_execution)
       end
 
       it "re-renders the 'edit' template" do
-        log = Log.create! valid_attributes
-        put :update, {:id => log.to_param, :log => invalid_attributes}, valid_session
+        host_execution = HostExecution.create! valid_attributes
+        put :update, {:id => host_execution.to_param, :host_execution => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
     end
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested log" do
-      log = Log.create! valid_attributes
+    it "destroys the requested host_execution" do
+      host_execution = HostExecution.create! valid_attributes
       expect {
-        delete :destroy, {:id => log.to_param}, valid_session
-      }.to change(Log, :count).by(-1)
+        delete :destroy, {:id => host_execution.to_param}, valid_session
+      }.to change(HostExecution, :count).by(-1)
     end
 
-    it "redirects to the logs list" do
-      log = Log.create! valid_attributes
-      delete :destroy, {:id => log.to_param}, valid_session
-      expect(response).to redirect_to(logs_url)
+    it "redirects to the host_executions list" do
+      host_execution = HostExecution.create! valid_attributes
+      delete :destroy, {:id => host_execution.to_param}, valid_session
+      expect(response).to redirect_to(host_executions_url)
     end
   end
 

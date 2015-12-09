@@ -5,11 +5,11 @@ RSpec.describe "revisions/index", type: :view do
     assign(:revisions, [
       Revision.create!(
         :name => "Name",
-        :tar_url => "Tar Url"
+        :url => "Url"
       ),
       Revision.create!(
         :name => "Name",
-        :tar_url => "Tar Url"
+        :url => "Url"
       )
     ])
   end
@@ -17,6 +17,6 @@ RSpec.describe "revisions/index", type: :view do
   it "renders a list of revisions" do
     render
     assert_select "tr>td", :text => "Name".to_s, :count => 2
-    assert_select "tr>td", :text => "Tar Url".to_s, :count => 2
+    assert_select "tr>td", :text => "Url".to_s, :count => 2
   end
 end

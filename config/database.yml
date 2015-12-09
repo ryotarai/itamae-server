@@ -8,19 +8,18 @@ default: &default
   adapter: mysql2
   pool: 5
   timeout: 5000
-  username: root
 
 development:
   <<: *default
-  database: itamae_server_development
+  database: itamae-server
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: itamae_server_test
+  database: itamae-server
 
 production:
   <<: *default
-  database: itamae_server
+  database: itamae-server

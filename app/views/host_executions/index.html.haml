@@ -1,0 +1,18 @@
+%h1 Listing host_executions
+
+%table
+  %thead
+    %tr
+      %th Host
+      %th Execution
+      %th
+      %th
+      %th
+
+  %tbody
+    - @host_executions.each do |host_execution|
+      %tr
+        %td= host_execution.host
+        %td= host_execution.execution
+        %td= link_to 'Show', host_execution
+

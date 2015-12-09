@@ -1,31 +1,24 @@
 Rails.application.routes.draw do
-  resources :users
-  resources :host_executions do
-    member do
-      patch 'append_log'
-      put   'append_log'
+  resources :host_executions, only: [:index, :show]
+  resources :hosts, only: [:index, :show]
+  resources :executions, only: [:create, :show, :index] do
+    resources :events, only: [] do
+      collection do
+        post 'bulk' => 'events#bulk_create'
+      end
     end
   end
-  resources :executions do
-    resources :host_executions, only: [:index]
-    member do
-      delete 'abort'
-    end
+  resources :revisions, only: [:create, :new, :show, :index] do
+    resources :executions, only: [:new]
   end
-  resources :revisions
-  post 'hooks/github' => 'hooks#github'
-  root 'revisions#index'
 
-  get '/auth/:provider/callback', to: 'sessions#create'
-
-  revision_endpoint = ENV['REVISION_ENDPOINT'] || '/site/sha'
-  get revision_endpoint => RevisionPlate::App.new
-
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'hosts#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

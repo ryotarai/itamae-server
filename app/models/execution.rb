@@ -1,13 +1,15 @@
 class Execution < ActiveRecord::Base
   belongs_to :revision
-  has_many :host_executions, dependent: :destroy
-
-  enum status: {in_progress: 1, completed: 2, aborted: 3}
+  has_many :host_executions
 
   validates :revision, presence: true
-  validates :is_dry_run, inclusion: [true, false]
+  if Figaro.env.allow_only_dry_run
+    validates :dry_run, inclusion: {in: [true], message: ": Actual run is not allowed."}
+  end
 
-  def queue
-    ExecutionWorker.perform_async(self.id)
+  after_create :enqueue_job
+
+  private def enqueue_job
+    ExecutionJob.perform_later(self)
   end
 end

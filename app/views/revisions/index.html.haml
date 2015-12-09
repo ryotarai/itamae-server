@@ -1,0 +1,16 @@
+%p#notice= notice
+%h1 Listing Revisions
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Url
+      %th Created
+  %tbody
+    - @revisions.reverse_order.each do |revision|
+      %tr
+        %td= link_to revision.name, revision
+        %td= revision.url
+        %td= revision.created_at
+
+= link_to 'New Revision', new_revision_path

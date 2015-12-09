@@ -1,6 +1,5 @@
 class ExecutionsController < ApplicationController
-  protect_from_forgery except: [:create]
-  before_action :set_execution, only: [:show, :edit, :update, :destroy, :abort]
+  before_action :set_execution, only: [:show, :edit, :update, :destroy]
 
   # GET /executions
   # GET /executions.json
@@ -13,9 +12,9 @@ class ExecutionsController < ApplicationController
   def show
   end
 
-  # GET /executions/new
+  # GET /revisions/1/executions/new
   def new
-    @execution = Execution.new
+    @execution = Execution.new(revision: Revision.find(params[:revision_id]))
   end
 
   # GET /executions/1/edit
@@ -29,8 +28,6 @@ class ExecutionsController < ApplicationController
 
     respond_to do |format|
       if @execution.save
-        @execution.queue if params[:execute_now]
-
         format.html { redirect_to @execution, notice: 'Execution was successfully created.' }
         format.json { render :show, status: :created, location: @execution }
       else
@@ -64,16 +61,6 @@ class ExecutionsController < ApplicationController
     end
   end
 
-  # DELETE /executions/1/abort
-  # DELETE /executions/1/abort.json
-  def abort
-    @execution.abort
-    respond_to do |format|
-      format.html { redirect_to @execution, notice: 'Execution was successfully aborted.' }
-      format.json { render :show, status: :ok, location: @execution }
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_execution
@@ -82,6 +69,6 @@ class ExecutionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def execution_params
-      params.require(:execution).permit(:revision_id, :is_dry_run)
+      params.require(:execution).permit(:revision_id, :dry_run)
     end
 end

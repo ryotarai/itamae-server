@@ -1,0 +1,16 @@
+%h1 Listing hosts
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Last Execution
+
+  %tbody
+    - @hosts.each do |host|
+      %tr
+        %td= link_to host.name, host
+        %td= link_to host.executions.last.created_at, host.executions.last
+
+%br
+

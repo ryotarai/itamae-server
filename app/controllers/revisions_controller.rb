@@ -26,15 +26,11 @@ class RevisionsController < ApplicationController
   def create
     @revision = Revision.new(revision_params)
 
-    if @revision.save
-      recipes_tar = params[:revision][:recipes_tar]
-      @revision.store_file(recipes_tar.path)
-      respond_to do |format|
+    respond_to do |format|
+      if @revision.save
         format.html { redirect_to @revision, notice: 'Revision was successfully created.' }
         format.json { render :show, status: :created, location: @revision }
-      end
-    else
-      respond_to do |format|
+      else
         format.html { render :new }
         format.json { render json: @revision.errors, status: :unprocessable_entity }
       end
@@ -73,6 +69,6 @@ class RevisionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def revision_params
-      params.require(:revision).permit()
+      params.require(:revision).permit(:name, :url)
     end
 end

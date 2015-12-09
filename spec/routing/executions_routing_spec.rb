@@ -1,34 +1,38 @@
 require "rails_helper"
 
-RSpec.describe PlansController, type: :routing do
+RSpec.describe ExecutionsController, type: :routing do
   describe "routing" do
 
     it "routes to #index" do
-      expect(:get => "/plans").to route_to("plans#index")
+      expect(:get => "/executions").to route_to("executions#index")
     end
 
     it "routes to #new" do
-      expect(:get => "/plans/new").to route_to("plans#new")
+      expect(:get => "/executions/new").to route_to("executions#new")
     end
 
     it "routes to #show" do
-      expect(:get => "/plans/1").to route_to("plans#show", :id => "1")
+      expect(:get => "/executions/1").to route_to("executions#show", :id => "1")
     end
 
     it "routes to #edit" do
-      expect(:get => "/plans/1/edit").to route_to("plans#edit", :id => "1")
+      expect(:get => "/executions/1/edit").to route_to("executions#edit", :id => "1")
     end
 
     it "routes to #create" do
-      expect(:post => "/plans").to route_to("plans#create")
+      expect(:post => "/executions").to route_to("executions#create")
     end
 
-    it "routes to #update" do
-      expect(:put => "/plans/1").to route_to("plans#update", :id => "1")
+    it "routes to #update via PUT" do
+      expect(:put => "/executions/1").to route_to("executions#update", :id => "1")
+    end
+
+    it "routes to #update via PATCH" do
+      expect(:patch => "/executions/1").to route_to("executions#update", :id => "1")
     end
 
     it "routes to #destroy" do
-      expect(:delete => "/plans/1").to route_to("plans#destroy", :id => "1")
+      expect(:delete => "/executions/1").to route_to("executions#destroy", :id => "1")
     end
 
   end

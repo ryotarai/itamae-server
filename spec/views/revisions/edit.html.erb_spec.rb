@@ -4,7 +4,7 @@ RSpec.describe "revisions/edit", type: :view do
   before(:each) do
     @revision = assign(:revision, Revision.create!(
       :name => "MyString",
-      :tar_url => "MyString"
+      :url => "MyString"
     ))
   end
 
@@ -15,7 +15,7 @@ RSpec.describe "revisions/edit", type: :view do
 
       assert_select "input#revision_name[name=?]", "revision[name]"
 
-      assert_select "input#revision_tar_url[name=?]", "revision[tar_url]"
+      assert_select "input#revision_url[name=?]", "revision[url]"
     end
   end
 end
